@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Slacker News</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+    <script src="/javascripts/angularapp.js"></script>
+  </head>
+  <body ng-app="slackerNews" ng-controller="mainCont">
+
+    <ui-view></ui-view>
+
+    <script type="text/ng-template" id="/home.html">
+
+      <div class="page-header">
+        <h1>Slacker News</h1>
+        <br>
+      </div>
+
+      <div ng-repeat="post in posts | orderBy: '-score'" class="posts">
+        <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(post)"></span>
+        {{ post.score }}
+        <a href="{{ post.link }}" ng-show="post.link">
+          <b>{{ post.title }}</b>
+        </a>
+        <span ng-hide="post.link">
+          <b>{{ post.title }}</b>
+        </span>
+        <br>
+        posted on {{ post.created_at | date: 'MMMM d, y @ h:mm a' }}
+        <br>
+        <span>
+          <a href="#/posts/{{ post._id }}">
+            Comments
+          </a>
+        </span>
+        <hr>
+      </div>
+
+      <br>
+      <div class="addPost">
+        <form ng-submit="addPost()">
+          <h3>Add A New Post</h3>
+          <input type="text" ng-model="title" id="title" placeholder="Title (Required)">
+          <br>
+          <input type="text" ng-model="link" id="link" placeholder="Link (Optional)">
+          <br>
+          <input type="text" ng-model="body" id="body" placeholder="Text (Optional)">
+          <br>
+          <button type="submit">Submit Post</button>
+        </form>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="/posts.html">
+
+      <div class="page-header">
+        <h2>
+          <a ng-show="post.link" href="{{ post.link }}">
+            {{ post.title }}
+          </a>
+        </h2>
+        <h2>
+          <span ng-hide="post.link">
+            {{ post.title }}
+          </span>
+        </h2>
+      </div>
+
+      <div ng-show="post.body">
+        {{ post.body }}
+        <hr>
+      </div>
+
+      <div ng-repeat="comment in post.comments | orderBy: '-score'">
+        <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(comment)">
+        </span>
+        {{ comment.score }} - {{ comment.author }} says:
+        <span>"{{ comment.body }}" on {{ comment.created_at | date: 'MMMM d, y @ h:mm a' }}</span>
+        <hr>
+      </div>
+      <br>
+
+      <form ng-submit="addComment()">
+        <h3>Leave A Comment</h3>
+        <input type="text" ng-model="body" id="body">
+        <br>
+        <button type="submit">Submit Comment</button>
+      </form>
+    </script>
+
+    <script type="text/ng-template" id="/register.html">
+      <div class="page-header">
+        <h1>Slacker News</h1>
+      </div>
+
+      <div ng-show="error" class="alert alert-danger row">
+        <span>{{ error.message }}</span>
+      </div>
+
+      <form ng-submit="register()">
+        <h3>Register</h3>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </script>
+
+    <script type="text/ng-template" id="/login.html">
+      <div class="page-header">
+        <h1>Slacker News</h1>
+      </div>
+
+      <div ng-show="error" class="alert alert-danger row">
+        <span>{{ error.message }}</span>
+      </div>
+
+      <form ng-submit="login()">
+        <h3>Register</h3>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </script>
+
+  </body>
+</html>

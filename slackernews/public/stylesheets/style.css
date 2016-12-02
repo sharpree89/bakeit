@@ -1,0 +1,20 @@
+body {
+  margin: auto;
+  width: 50%;
+}
+input {
+  width: 100%;
+  margin: 1% 0 1% 0;
+  padding: 1%;
+}
+.glyphicon-thumbs-up, .glyphicon-thumbs-down {
+  cursor: pointer;
+}
+button {
+  margin-top: 1%;
+  padding: 2% 4%;
+  background-color: turquoise;
+  color: white;
+  border: none !important;
+  box-shadow: none !important;
+}
