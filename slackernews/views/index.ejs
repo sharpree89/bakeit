@@ -10,6 +10,14 @@
     <script src="/javascripts/angularapp.js"></script>
   </head>
   <body ng-app="slackerNews" ng-controller="mainCont">
+    <nav class="navbar navbar-default pull-right" ng-controller="navCont">
+      <ul class="nav navbar-nav">
+        <li ng-show="isLoggedIn()"><a>Welcome, {{ currentUser() }}!</a></li>
+        <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+        <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+        <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+      </ul>
+    </nav>
 
     <ui-view></ui-view>
 
@@ -22,6 +30,7 @@
 
       <div ng-repeat="post in posts | orderBy: '-score'" class="posts">
         <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(post)"></span>
+        <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(post)"></span>
         {{ post.score }}
         <a href="{{ post.link }}" ng-show="post.link">
           <b>{{ post.title }}</b>
@@ -32,17 +41,24 @@
         <br>
         posted on {{ post.created_at | date: 'MMMM d, y @ h:mm a' }}
         <br>
+        <span ng-show="post.author">
+          posted by <a>{{ post.author }}</a>
+        </span>
+        <br>
         <span>
           <a href="#/posts/{{ post._id }}">
             Comments
           </a>
+        </span>
+        <span ng-click="deletePost(post)">
+          <b>Delete</b>
         </span>
         <hr>
       </div>
 
       <br>
       <div class="addPost">
-        <form ng-submit="addPost()">
+        <form ng-submit="addPost()" ng-show="isLoggedIn()">
           <h3>Add A New Post</h3>
           <input type="text" ng-model="title" id="title" placeholder="Title (Required)">
           <br>
@@ -52,6 +68,11 @@
           <br>
           <button type="submit">Submit Post</button>
         </form>
+
+        <div ng-hide="isLoggedIn()">
+          <h3>You need to <a href="/#/login">log in</a> or <a href="/#/register">register</a> before you can add posts.</h3>
+        </div>
+
       </div>
     </script>
 
@@ -78,18 +99,28 @@
       <div ng-repeat="comment in post.comments | orderBy: '-score'">
         <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(comment)">
         </span>
+        <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(comment)">
+        </span>
         {{ comment.score }} - {{ comment.author }} says:
         <span>"{{ comment.body }}" on {{ comment.created_at | date: 'MMMM d, y @ h:mm a' }}</span>
+        <span ng-click="deleteComment(comment)">
+          <b>Delete</b>
+        </span>
         <hr>
       </div>
       <br>
 
-      <form ng-submit="addComment()">
+      <form ng-submit="addComment()" ng-show="isLoggedIn()">
         <h3>Leave A Comment</h3>
         <input type="text" ng-model="body" id="body">
         <br>
         <button type="submit">Submit Comment</button>
       </form>
+
+      <div ng-hide="isLoggedIn()">
+        <h3>You need to <a href="/#/login">log in</a> or <a href="/#/register">register</a> before you can leave comments.</h3>
+      </div>
+
     </script>
 
     <script type="text/ng-template" id="/register.html">
@@ -123,7 +154,7 @@
       </div>
 
       <form ng-submit="login()">
-        <h3>Register</h3>
+        <h3>Login</h3>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
         </div>
