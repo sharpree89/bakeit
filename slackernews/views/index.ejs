@@ -10,8 +10,10 @@
     <script src="/javascripts/angularapp.js"></script>
   </head>
   <body ng-app="slackerNews" ng-controller="mainCont">
-    <nav class="navbar navbar-default pull-right" ng-controller="navCont">
+
+    <nav class="navbar navbar-fixed-top" ng-controller="navCont">
       <ul class="nav navbar-nav">
+        <li><a href="">Slacker News</a></li>
         <li ng-show="isLoggedIn()"><a>Welcome, {{ currentUser() }}!</a></li>
         <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
         <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
@@ -22,38 +24,27 @@
     <ui-view></ui-view>
 
     <script type="text/ng-template" id="/home.html">
-
-      <div class="page-header">
-        <h1>Slacker News</h1>
-        <br>
-      </div>
-
       <div ng-repeat="post in posts | orderBy: '-score'" class="posts">
-        <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(post)"></span>
-        <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(post)"></span>
-        {{ post.score }}
-        <a href="{{ post.link }}" ng-show="post.link">
-          <b>{{ post.title }}</b>
-        </a>
-        <span ng-hide="post.link">
-          <b>{{ post.title }}</b>
-        </span>
-        <br>
-        posted on {{ post.created_at | date: 'MMMM d, y @ h:mm a' }}
-        <br>
-        <span ng-show="post.author">
-          posted by <a>{{ post.author }}</a>
-        </span>
-        <br>
-        <span>
-          <a href="#/posts/{{ post._id }}">
-            Comments
-          </a>
-        </span>
-        <span ng-click="delete(post)" ng-show="isLoggedIn()">
-          <a href="">Delete</a>
-        </span>
-        <hr>
+        <div class="votes">
+          <ul>
+            <li><span class="glyphicon glyphicon-menu-up" ng-click="upvote(post)"></span></li>
+            <li>{{ post.score }}</li>
+            <li><span class="glyphicon glyphicon-menu-down" ng-click="downvote(post)"></span></li>
+          <ul>
+        </div>
+
+        <div class="postInfo">
+          <ul>
+            <li><h3><a href="{{ post.link }}" ng-show="post.link">{{ post.title }}</h3></a></li>
+            <li><h3><a href="#/posts/{{ post._id }}" ng-hide="post.link">{{ post.title }}</h3></a></li>
+            <li>submitted on {{ post.created_at | date: 'MMMM d, y @ h:mm a' }} by <a href="">{{ post.author }}</a></li>
+            <li>
+              <span class="glyphicon glyphicon-heart"></span>
+              <a href="#/posts/{{ post._id }}"><span class="glyphicon glyphicon-comment"></span></a>
+              <span class="glyphicon glyphicon-trash" ng-click="delete(post)" ng-show="isLoggedIn()"></span>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <br>
@@ -66,7 +57,7 @@
           <br>
           <input type="text" ng-model="body" id="body" placeholder="Text (Optional)">
           <br>
-          <button type="submit">Submit Post</button>
+          <button type="submit" class="btn btn-primary">Submit Post</button>
         </form>
 
         <div ng-hide="isLoggedIn()">
@@ -78,47 +69,60 @@
 
     <script type="text/ng-template" id="/posts.html">
 
-      <div class="page-header">
-        <h2>
-          <a ng-show="post.link" href="{{ post.link }}">
-            {{ post.title }}
-          </a>
-        </h2>
-        <h2>
-          <span ng-hide="post.link">
-            {{ post.title }}
+      <div class="postsContainer">
+
+        <div class="page-header" style="margin-top: 100px;">
+          <div ng-show="post.link">
+            <ul>
+              <li><h3><a href="{{ post.link }}">{{ post.title }}</a></h3></li>
+              <li>{{ post.link }}</li>
+              <li>submitted on {{ post.created_at | date: 'MMMM d, y @ h:mm a' }} by <a href="">{{ post.author }}</a></li>
+            </ul>
+          </div>
+
+          <div ng-hide="post.link">
+            <ul>
+              <li><h2>{{ post.title }}</h2></li>
+              <li>submitted on {{ post.created_at | date: 'MMMM d, y @ h:mm a' }} by <a href="">{{ post.author }}</a></li>
+
+            </ul>
+          </div>
+
+        </div>
+
+        <div ng-show="post.body">
+          {{ post.body }}
+          <hr>
+        </div>
+
+        <div ng-if="post.comments.length === 0">
+          <h4>No one has left any comments yet!</h4>
+        </div>
+
+        <div ng-repeat="comment in post.comments | orderBy: '-score'">
+          <span class="glyphicon glyphicon-chevron-up" ng-click="upvote(comment)">
           </span>
-        </h2>
-      </div>
-
-      <div ng-show="post.body">
-        {{ post.body }}
-        <hr>
-      </div>
-
-      <div ng-repeat="comment in post.comments | orderBy: '-score'">
-        <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(comment)">
-        </span>
-        <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(comment)">
-        </span>
-        {{ comment.score }} - {{ comment.author }} says:
-        <span>"{{ comment.body }}" on {{ comment.created_at | date: 'MMMM d, y @ h:mm a' }}</span>
-        <span ng-click="delete(comment)" ng-show="isLoggedIn()">
-          <b>Delete</b>
-        </span>
-        <hr>
-      </div>
-      <br>
-
-      <form ng-submit="addComment()" ng-show="isLoggedIn()">
-        <h3>Leave A Comment</h3>
-        <input type="text" ng-model="body" id="body">
+          <span class="glyphicon glyphicon-chevron-down" ng-click="downvote(comment)">
+          </span>
+          {{ comment.score }} - {{ comment.author }} says:
+          <span>"{{ comment.body }}" on {{ comment.created_at | date: 'MMMM d, y @ h:mm a' }}</span>
+          <span ng-click="delete(comment)" ng-show="isLoggedIn()">
+            <b>Delete</b>
+          </span>
+          <hr>
+        </div>
         <br>
-        <button type="submit">Submit Comment</button>
-      </form>
 
-      <div ng-hide="isLoggedIn()">
-        <h3>You need to <a href="/#/login">log in</a> or <a href="/#/register">register</a> before you can leave comments.</h3>
+        <form ng-submit="addComment()" ng-show="isLoggedIn()">
+          <h3>Leave A Comment</h3>
+          <input type="text" ng-model="body" id="body">
+          <br>
+          <button type="submit" class="btn btn-primary">Submit Comment</button>
+        </form>
+
+        <div ng-hide="isLoggedIn()">
+          <h3>You need to <a href="/#/login">log in</a> or <a href="/#/register">register</a> before you can leave comments.</h3>
+        </div>
       </div>
 
     </script>

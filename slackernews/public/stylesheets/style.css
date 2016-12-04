@@ -10,15 +10,48 @@ input {
 .glyphicon-thumbs-up, .glyphicon-thumbs-down {
   cursor: pointer;
 }
-button {
-  margin-top: 1%;
-  padding: 2% 4%;
-  background-color: turquoise;
-  color: white;
-  border: none !important;
-  box-shadow: none !important;
-}
 
 a {
   cursor: pointer;
+}
+
+ul li {
+  list-style-type: none;
+  padding-bottom: 1%;
+}
+
+.posts {
+  border: 2px dotted blue;
+}
+
+.posts:first-child {
+  margin-top: 100px;
+}
+
+.votes {
+  border: 1px solid black;
+  width: 10%;
+  float: left;
+  margin-top: 3.5%;
+}
+
+.votes ul li {
+  margin-right: 150px;
+  text-align: center;
+  width: 30px;
+}
+
+.postInfo {
+  border: 2px solid red;
+  margin-left: 10%;
+  height: 50%;
+}
+
+.glyphicon {
+  cursor: pointer;
+  padding-right: 2%;
+}
+
+.navbar {
+  background-color: lightgrey;
 }
