@@ -169,4 +169,28 @@ router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, n
   })
 });
 
+// <------------------ DELETE Routes (Posts, Comments) ------------------>
+
+router.delete('/posts/:post/delete', function(req, res, next) {
+  console.log('HITTING DELETE ROUTE');
+  req.post.remove(function (err, post) {
+    if (err) {
+      return next(err);
+    }
+    res.json(post);
+  })
+});
+
+router.delete('/posts/:post/comments/:comment/delete', function(req, res, next) {
+  console.log('HITTING DELETE ROUTE');
+  req.comment.remove(function (err, comment) {
+    if (err) {
+      return next(err);
+    }
+    res.json(comment);
+  })
+});
+
+
+
 module.exports = router;

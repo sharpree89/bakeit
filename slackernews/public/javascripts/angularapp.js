@@ -84,7 +84,7 @@ angular.module("slackerNews", ["ui.router"])
     if (auth.isLoggedIn()) {
       var token = auth.getToken();
       var payload = JSON.parse($window.atob(token.split('.')[1]));
-
+      var username = payload.username;
       return payload.username;
     }
   };
@@ -134,6 +134,13 @@ angular.module("slackerNews", ["ui.router"])
     })
   };
 
+  obj.delete = function(post) {
+    return $http.delete('/posts/' + post._id + '/delete', post).success(function(data){
+      console.log('LINE 139 POSTS FACTORY');
+      console.log(data);
+    });
+  }
+
   obj.upvote = function(post) {
     return $http.put('/posts/' + post._id + '/upvote', null, {
       headers: { Authorization: 'Bearer ' + auth.getToken() }
@@ -165,20 +172,22 @@ angular.module("slackerNews", ["ui.router"])
   };
 
   obj.downvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', null, {
+    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', {
       headers: { Authorization: 'Bearer ' + auth.getToken() }
     }).success(function(data) {
       comment.score -= 1;
     })
   };
 
-  // obj.deletePost = function(post) {
-  //   return $http.delete('/posts/' + post._id + '/delete', null, {
-  //     headers: { Authorization: 'Bearer ' + auth.getToken() }
-  //   }).success(function(data) {
-  //
-  //   })
-  // }
+  obj.deleteComment = function(post, comment) {
+    console.log('LINE 183 POSTS FACTORY');
+    console.log('Post ID: ' + post._id); //this prints
+    console.log('Comment ID: ' + comment._id); //this does not print
+    return $http.delete('/posts/' + post._id + '/comments/' + comment._id + '/delete', comment).success(function(data){
+      console.log('LINE 185 POSTS FACTORY');
+      console.log(data);
+    });
+  }
 
   return obj;
 }])
@@ -189,7 +198,8 @@ angular.module("slackerNews", ["ui.router"])
   "$scope",
   "postsFact",
   "auth",
-  function($scope, postsFact, auth) {
+  "$window",
+  function($scope, postsFact, auth, $window) {
 
     $scope.posts = postsFact.posts;
     $scope.isLoggedIn = auth.isLoggedIn;
@@ -225,6 +235,13 @@ angular.module("slackerNews", ["ui.router"])
       }
     }
 
+    $scope.delete = function(post) {
+      console.log('LINE 239 MAIN CONTROLLER');
+      console.log('Post ID: ' + post._id); //this prints
+      postsFact.delete(post);
+      $window.location.reload();
+    }
+
   }])
 
   .controller("postsCont", [
@@ -233,7 +250,8 @@ angular.module("slackerNews", ["ui.router"])
     "postsFact",
     "post",
     "auth",
-    function($scope, $stateParams, postsFact, post, auth) {
+    "$window",
+    function($scope, $stateParams, postsFact, post, auth, $window) {
       $scope.post = post;
       $scope.isLoggedIn = auth.isLoggedIn;
 
@@ -265,6 +283,13 @@ angular.module("slackerNews", ["ui.router"])
           comment.hadDownVoted = true;
         }
       }
+
+      $scope.delete = function(comment) {
+        console.log('HITTING POSTS CONTROLLER');
+        postsFact.deleteComment(post, comment);
+        $window.location.reload();
+      }
+
     }])
 
   .controller("authCont", [

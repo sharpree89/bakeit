@@ -50,8 +50,8 @@
             Comments
           </a>
         </span>
-        <span ng-click="deletePost(post)">
-          <b>Delete</b>
+        <span ng-click="delete(post)" ng-show="isLoggedIn()">
+          <a href="">Delete</a>
         </span>
         <hr>
       </div>
@@ -103,7 +103,7 @@
         </span>
         {{ comment.score }} - {{ comment.author }} says:
         <span>"{{ comment.body }}" on {{ comment.created_at | date: 'MMMM d, y @ h:mm a' }}</span>
-        <span ng-click="deleteComment(comment)">
+        <span ng-click="delete(comment)" ng-show="isLoggedIn()">
           <b>Delete</b>
         </span>
         <hr>
