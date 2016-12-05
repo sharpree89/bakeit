@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>bakeit</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <!-- Javascripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+    <script src="/javascripts/angularapp.js"></script>
+  </head>
+  <body ng-app="bakeit" ng-controller="mainCont">
+    <div class="header">
+      <h1>bakeit</h1>
+      <hr>
+    </div>
+    <ui-view></ui-view>
+
+    <!-- Start of Home Page -->
+    <script type="text/ng-template" id="/home.html">
+      <div ng-repeat="post in posts | orderBy: '-score'" class="posts">
+        <div class="votes">
+          <p><span class="glyphicon glyphicon-menu-up" ng-click="upvote(post)"></span></p>
+          <p>{{ post.score }}</p>
+          <p><span class="glyphicon glyphicon-menu-down" ng-click="downvote(post)"></span></p>
+        </div>
+        <div class="postInfo">
+          <h4><a href="#/posts/{{ post._id }}">{{ post.title }}</h4></a>
+          <p>{{ post.created_at | date: 'h:mm a | MMMM d, y' }} by <a href="">{{ post.author }}</a></p>
+          <p>
+            <span><a href="#/posts/{{ post._id }}">{{ post.comments.length }} comments</a></span>
+            <span class="glyphicon glyphicon-trash" ng-click="delete(post)" ng-show="isLoggedIn()"></span>
+          </p>
+        </div>
+      </div>
+      <hr>
+      <div class="addPost">
+        <form ng-submit="addPost()" ng-show="isLoggedIn()">
+          <div class="form-group">
+            <label for="title">Title (Required)</label>
+            <input type="text" class="form-control" ng-model="title" id="title">
+          </div>
+          <div class="form-group">
+            <label for="link">Link</label>
+            <input type="text" class="form-control" ng-model="link" id="link">
+          </div>
+          <div class="form-group">
+            <label for="body">Comments</label>
+            <textarea class="form-control" rows="5" ng-model="body" id="body"></textarea>
+          </div>
+          <label>Tags</label>
+          <div id="tags">
+            <div class="tags-one">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">recipe</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">help</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">bread</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">pastry</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">pie</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">cake</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">cookies</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">cupcakes</label>
+              </div>
+            </div>
+            <div class="tags-two">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">valentine's</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">halloween</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">thanksgiving</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">birthday</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">christmas</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">easter</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">st. patrick's</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">new year's eve</label>
+              </div>
+            </div>
+            <div class="tags-three">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">no-bake</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">savory</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">fusion</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">traditional</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">trendy</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">celebration</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">tutorial</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">haute cuisine</label>
+              </div>
+            </div>
+            <div class="tags-four">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">vegan</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">gluten-free</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">low-carb</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">low-calorie</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">sugar-free</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">dairy-free</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">guilt-free</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">kid-friendly</label>
+              </div>
+            </div>
+            <div class="tags-five">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">mother's day</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">father's day</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">baby shower</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">bridal shower</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">wedding</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">bachelorette</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">bachelor</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">graduation</label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div ng-hide="isLoggedIn()">
+          <h3>You need to <a href="/#/login">log in</a> or <a href="/#/register">register</a> before you can add posts.</h3>
+        </div>
+        <br>
+        <br>
+        <br>
+      </div>
+    </script>
+    <!-- End of Home Page -->
+
+    <!-- Start of Post/Comments Page -->
+    <script type="text/ng-template" id="/posts.html">
+      <div class="post-votes">
+        <p><span class="glyphicon glyphicon-menu-up" ng-click="upvote(post)"></span></p>
+        <p>{{ post.score }}</p>
+        <p><span class="glyphicon glyphicon-menu-down" ng-click="downvote(post)"></span></p>
+      </div>
+
+      <div ng-show="post.link" class="comment-info">
+        <h3 class="post-info"><a href="{{ post.link }}">{{ post.title }}</a></h3>
+        <a href="{{ post.link }}">{{ post.link }}</a>
+        <p>{{ post.created_at | date: 'h:mm a | MMMM d, y' }} by <a href="">{{ post.author }}</a></p>
+      </div>
+      <div ng-hide="post.link" class="comment-info">
+        <h3 class="post-info">{{ post.title }}</h3>
+        <p>{{ post.created_at | date: 'h:mm a | MMMM d, y' }} by <a href="">{{ post.author }}</a></p>
+      </div>
+      <hr>
+      <div ng-show="post.body" class="post-body">
+        {{ post.body }}
+      </div>
+
+      <div ng-if="post.comments.length === 0">
+        <p>Be the first to leave <a href="">{{ post.author }}</a> a comment!</p>
+      </div>
+      <div ng-repeat="comment in post.comments | orderBy: '-score'" ng-class-odd=" 'striped' ">
+        <div class="comment-votes">
+          <p><span class="glyphicon glyphicon-menu-up" ng-click="upvote(comment)"></span></p>
+          <p>{{ comment.score }}</p>
+          <p><span class="glyphicon glyphicon-menu-down" ng-click="downvote(comment)"></span></p>
+        </div>
+        <div class="comment-info">
+          <p style="margin-bottom: 0px;"><a href="">{{ comment.author }}</a> says...<p>
+          <p>{{ comment.body }}</p>
+          <p>{{ post.created_at | date: 'h:mm a | MMMM d, y' }}</p>
+          <p><span class="glyphicon glyphicon-trash" ng-click="deleteComment(comment)" ng-show="isLoggedIn()"></span></p>
+        </div>
+      </div>
+      <hr>
+      <form ng-submit="addComment()" ng-show="isLoggedIn()" class="comment-form">
+        <div class="form-group">
+          <label for="comment">Leave A Comment:</label>
+          <textarea class="form-control comment-box" rows="5" ng-model="body" id="body"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <div ng-hide="isLoggedIn()">
+        <h3>You need to <a href="/#/login">log in</a> or <a href="/#/register">register</a> before you can leave comments.</h3>
+      </div>
+      <br>
+      <br>
+      <br>
+    </script>
+    <!-- End of Post/Comments Page -->
+
+    <!-- Start of Register Page -->
+    <script type="text/ng-template" id="/register.html">
+      <div class="page-header">
+        <h1>bakeit</h1>
+        <hr>
+      </div>
+      <div ng-show="error" class="alert alert-danger row">
+        <span>{{ error.message }}</span>
+      </div>
+      <form ng-submit="register()">
+        <h3>Register</h3>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </script>
+    <!-- End of Register Page -->
+
+    <!-- Start of Login Page -->
+    <script type="text/ng-template" id="/login.html">
+      <div class="page-header">
+        <h1>bakeit</h1>
+        <hr>
+      </div>
+      <div ng-show="error" class="alert alert-danger row">
+        <span>{{ error.message }}</span>
+      </div>
+      <form ng-submit="login()">
+        <h3>Login</h3>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </script>
+    <!-- End of Login Page -->
+
+  </body>
+</html>

@@ -1,0 +1,103 @@
+body {
+  margin: auto;
+  width: 50%;
+}
+input {
+  width: 100%;
+  margin: 1% 0 1% 0;
+  padding: 1%;
+}
+.glyphicon-thumbs-up, .glyphicon-thumbs-down {
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+}
+
+ul li {
+  list-style-type: none;
+  padding-bottom: 1%;
+}
+
+.posts {
+  border: 1px dotted magenta;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+/*on home page*/
+.postInfo {
+  margin-left: 5%;
+}
+
+.votes {
+  margin-top: 10px;
+  float: left;
+  text-align: center;
+  display: inline-block;
+}
+
+.votes p {
+  margin: 0;
+}
+
+.post-votes {
+  float: left;
+  text-align: center;
+  display: inline-block;
+  margin-right: 2.5%;
+}
+
+.post-votes p {
+  margin: 0;
+}
+
+.tags-one, .tags-two, .tags-three, .tags-four, .tags-five {
+  width: 19.5%;
+  display: inline-block;
+}
+
+/*on comments page*/
+.post-info {
+  margin-top: 0;
+}
+
+.comment-votes {
+  float: left;
+  text-align: center;
+  display: inline-block;
+}
+
+.comment-votes p {
+  margin: 0;
+}
+
+.comment-info {
+  margin-left: 5%;
+
+}
+
+.striped {
+  background-color: #E5FFE5;
+  border-radius: 5px;
+  border: 1px dotted green;
+}
+
+.glyphicon {
+  cursor: pointer;
+  padding-right: 2%;
+}
+
+.post-body {
+  border: 1px dotted magenta;
+  border-radius: 5px;
+  padding: 10px 10px 30px 10px;
+  margin-bottom: 5%;
+  background-color: #FFEBEF;
+}
+
+.comment-box {
+  border-radius: 5px;
+}
