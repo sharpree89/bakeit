@@ -210,11 +210,13 @@ angular.module("bakeit", ["ui.router"])
           author: auth.currentUser,
           title: $scope.title,
           link: $scope.link,
-          body: $scope.body
+          body: $scope.body,
+          tags: $scope.tags
         });
         $scope.title = "";
         $scope.link = "";
         $scope.body = "";
+        $scope.tags = "";
       }
       else{
         return;
@@ -324,3 +326,13 @@ angular.module("bakeit", ["ui.router"])
       $scope.currentUser = auth.currentUser;
       $scope.logOut = auth.logOut;
     }])
+
+  .filter("commaBreak",
+    function() {
+      return function(value) {
+        if (!value.length) {
+          return;
+        }
+        return value.split(',');
+      }
+    })

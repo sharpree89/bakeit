@@ -5,6 +5,7 @@ var PostSchema = new mongoose.Schema({
   title: { type: String, required: true },
   link: String,
   body: String,
+  tags: String,
   score: { type: Number, default: 0 },
   created_at: { type: Date, default: Date.now },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
