@@ -1,6 +1,6 @@
 angular.module("bakeit", ["ui.router"])
 
-// <------------------ Client-Side Routes ------------------>
+// <------------------ CLIENT-SIDE ROUTES ------------------>
 
 .config([
   "$stateProvider",
@@ -8,10 +8,11 @@ angular.module("bakeit", ["ui.router"])
   function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-      .state("home", {
-        url: "/home",
-        templateUrl: "/home.html",
+      .state("index", {
+        url: "/",
+        templateUrl: "/index.html",
         controller: "mainCont",
+        // load all the posts before the page has loaded
         resolve: {
           postPromise: ['postsFact', function(postsFact) {
             return postsFact.getAll();
@@ -23,6 +24,7 @@ angular.module("bakeit", ["ui.router"])
         url: "/posts/{id}",
         templateUrl: "/posts.html",
         controller: "postsCont",
+        // load the specific post before the page has loaded
         resolve: {
           post: ['$stateParams', 'postsFact', function($stateParams, postsFact) {
             return postsFact.get($stateParams.id);
@@ -34,9 +36,10 @@ angular.module("bakeit", ["ui.router"])
         url: '/login',
         templateUrl: "/login.html",
         controller: "authCont",
+        // if user is already logged in, redirect to index
         onEnter: ["$state", "auth", function($state, auth) {
           if (auth.isLoggedIn()) {
-            $state.go("home");
+            $state.go("index");
           }
         }]
       })
@@ -45,17 +48,27 @@ angular.module("bakeit", ["ui.router"])
         url: '/register',
         templateUrl: "/register.html",
         controller: "authCont",
+        // if user is already logged in, redirect to index
         onEnter: ["$state", "auth", function($state, auth) {
           if (auth.isLoggedIn()) {
-            $state.go("home");
+            $state.go("index");
           }
         }]
       })
 
-      $urlRouterProvider.otherwise("home");
+      .state("error", {
+        url: "/error",
+        templateUrl: "/404.html"
+      })
+
+      // if user tries an invalid URL, redirect to 404 page
+
+      $urlRouterProvider.otherwise("error");
   }])
 
-// <------------------ Factories ------------------>
+// <------------------ SERVICES ------------------>
+
+// <------------------ Auth Factory ------------------>
 
 .factory("auth", ["$http", "$window", function($http, $window) {
 
@@ -69,6 +82,7 @@ angular.module("bakeit", ["ui.router"])
     return $window.localStorage["bakeit-token"];
   };
 
+  // verify that a user is currently logged in (to be used on client-side)
   auth.isLoggedIn = function() {
     var token = auth.getToken();
     if (token) {
@@ -80,6 +94,7 @@ angular.module("bakeit", ["ui.router"])
     }
   };
 
+  // return the username of the currently logged in user (to be used on client-side)
   auth.currentUser = function() {
     if (auth.isLoggedIn()) {
       var token = auth.getToken();
@@ -108,11 +123,15 @@ angular.module("bakeit", ["ui.router"])
   return auth;
 }])
 
+// <------------------ Posts Factory ------------------>
+
 .factory("postsFact", ["$http", "auth", function($http, auth) {
 
   var obj = {
     posts: []
   };
+
+  // Post Methods
 
   obj.getAll = function() {
     return $http.get('/posts').success(function(data) {
@@ -155,6 +174,8 @@ angular.module("bakeit", ["ui.router"])
     })
   };
 
+  // Comment Methods
+
   obj.addComment = function(id, comment) {
     return $http.post('/posts/' + id + '/comments', comment, {
       headers: { Authorization: 'Bearer ' + auth.getToken() }
@@ -182,13 +203,14 @@ angular.module("bakeit", ["ui.router"])
     console.log('Comment ID: ' + comment._id);
     return $http.delete('/posts/' + post._id + '/comments/' + comment._id + '/delete', comment).success(function(data){
     });
-
   }
 
   return obj;
 }])
 
-// <------------------ Controllers ------------------>
+// <------------------ CONTROLLERS ------------------>
+
+// <------------------ Main Controller ------------------>
 
 .controller("mainCont", [
   "$scope",
@@ -201,7 +223,7 @@ angular.module("bakeit", ["ui.router"])
     $scope.isLoggedIn = auth.isLoggedIn;
 
     $scope.sortType = "-score"; // sorting by top score as default
-    $scope.searchPosts = ""; //default search/filter item
+    $scope.searchPosts = ""; // default search/filter item
 
     $scope.addPost = function() {
       if($scope.title) {
@@ -212,6 +234,7 @@ angular.module("bakeit", ["ui.router"])
           body: $scope.body,
           tags: $scope.tags
         });
+        // clear forms after submission
         $scope.title = "";
         $scope.link = "";
         $scope.body = "";
@@ -222,6 +245,7 @@ angular.module("bakeit", ["ui.router"])
       }
     }
 
+    // To Do: fix upvoting (user can upvote/downvote indefinitely if refresh page or log out)
     $scope.upvote = function(post) {
       if(!post.hadUpVoted) {
         postsFact.upvote(post);
@@ -237,16 +261,20 @@ angular.module("bakeit", ["ui.router"])
     }
 
     $scope.delete = function(post) {
-      console.log('LINE 239 MAIN CONTROLLER');
-      console.log('Post ID: ' + post._id + 'Post Author: ' + post.author + auth.currentUser()); //this prints
+      console.log('LINE 265 MAIN CONTROLLER');
+      console.log('Post ID: ' + post._id + 'Post Author: ' + post.author);
+      console.log('Current User: ' + auth.currentUser());
       if (auth.currentUser() === post.author) {
         postsFact.delete(post);
+        // force refresh to indicate the post has been deleted
         $window.location.reload();
       } else {
         return false;
       }
     }
   }])
+
+  // <------------------ Posts Controller ------------------>
 
   .controller("postsCont", [
     "$scope",
@@ -276,6 +304,7 @@ angular.module("bakeit", ["ui.router"])
         }
       }
 
+      // To Do: fix upvoting (user can upvote/downvote indefinitely if refresh page or log out)
       $scope.upvote = function(comment) {
         if (!comment.hadUpVoted) {
           postsFact.upvoteComment(post, comment);
@@ -290,18 +319,23 @@ angular.module("bakeit", ["ui.router"])
         }
       }
 
+      // To Do: Figure out how to update post.comments.length after a comment has been deleted
+      // number does not update on homepage
       $scope.delete = function(comment) {
-        console.log('LINE 291 POST CONTROLLER');
-        console.log('Comment ID: ' + comment._id + 'Comment Author: ' + comment.author + auth.currentUser());
+        console.log('LINE 325 POST CONTROLLER');
+        console.log('Comment ID: ' + comment._id + 'Comment Author: ' + comment.author);
+        console.log('Current User: ' + auth.currentUser());
         if (auth.currentUser() === comment.author) {
           postsFact.deleteComment(post, comment);
+          // force refresh to indicate the post has been deleted
           $window.location.reload();
         } else {
           return false;
         }
       }
-
     }])
+
+// <------------------ Auth Controller ------------------>
 
   .controller("authCont", [
     "$scope",
@@ -314,7 +348,7 @@ angular.module("bakeit", ["ui.router"])
         auth.register($scope.user).error(function(error) {
           $scope.error = error;
         }).then(function() {
-          $state.go('home');
+          $state.go('index');
         });
       };
 
@@ -322,10 +356,12 @@ angular.module("bakeit", ["ui.router"])
         auth.login($scope.user).error(function(error) {
           $scope.error = error;
         }).then(function() {
-          $state.go('home');
+          $state.go('index');
         });
       };
     }])
+
+// <------------------ NavBar Controller ------------------>
 
   .controller("navCont", [
     "$scope",
@@ -336,6 +372,9 @@ angular.module("bakeit", ["ui.router"])
       $scope.logOut = auth.logOut;
     }])
 
+// <------------------ CUSTOM FILTERS ------------------>
+
+// splits the string 'post.tags' for display on Client-Side
   .filter("commaBreak",
     function() {
       return function(value) {

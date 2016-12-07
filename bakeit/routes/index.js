@@ -11,10 +11,12 @@ var User = mongoose.model('User');
 
 // <------------------ GET Routes ------------------>
 
+// Index
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+//Get All Posts
 router.get('/posts', function(req, res, next) {
   Post.find(function(err, posts) {
     if(err) {
@@ -24,14 +26,16 @@ router.get('/posts', function(req, res, next) {
   })
 });
 
+// Get A Specific Post
 router.get('/posts/:post', function(req, res) {
   req.post.populate('comments', function(err, post) {
     res.json(post);
   })
 });
 
-// <------------------ POST Routes (Register, Login, Post, Comment) ------------------>
+// <------------------ POST Routes ------------------>
 
+// Register New User
 router.post('/register', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({ message: 'Please do not leave any fields blank.' });
@@ -55,6 +59,7 @@ router.post('/register', function(req, res, next) {
   })
 });
 
+// Login Existing User
 router.post('/login', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({ message: 'Please do not leave any fields blank.' });
@@ -72,6 +77,7 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
+// Create New Post
 router.post('/post', auth, function(req, res, next) {
   var post = new Post(req.body);
   post.author = req.payload.username;
@@ -84,6 +90,7 @@ router.post('/post', auth, function(req, res, next) {
   })
 });
 
+// Create New Comment
 router.post('/posts/:post/comments', auth, function(req, res, next) {
   //creating a new mongoose object == to the request body
   var comment = new Comment(req.body);
@@ -109,6 +116,7 @@ router.post('/posts/:post/comments', auth, function(req, res, next) {
 
 // <------------------ PUT Routes (Voting) ------------------>
 
+// Finding specific post and comment ids to use as route params
 router.param('post', function(req, res, next, id) {
   var query = Post.findById(id);
 
@@ -139,6 +147,7 @@ router.param('comment', function(req, res, next, id) {
   })
 });
 
+// Upvoting Posts
 router.put('/posts/:post/upvote', auth, function(req, res, next) {
   req.post.upvote(function(err, post) {
     if (err) {
@@ -148,6 +157,7 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
   })
 });
 
+// Downvoting Posts
 router.put('/posts/:post/downvote', auth, function(req, res, next) {
   req.post.downvote(function(err, post) {
     if (err) {
@@ -157,6 +167,7 @@ router.put('/posts/:post/downvote', auth, function(req, res, next) {
   })
 });
 
+// Upvoting Comments
 router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
   req.comment.upvote(function(err, comment) {
     if (err) {
@@ -166,6 +177,7 @@ router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, nex
   })
 });
 
+// Downvoting Comments
 router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, next) {
   req.comment.downvote(function(err, comment) {
     if (err) {
@@ -175,8 +187,9 @@ router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, n
   })
 });
 
-// <------------------ DELETE Routes (Posts, Comments) ------------------>
+// <------------------ DELETE Routes ------------------>
 
+// Delete Posts
 router.delete('/posts/:post/delete', function(req, res, next) {
   console.log('HITTING DELETE POST ROUTE');
   req.post.remove(function (err, post) {
@@ -187,6 +200,7 @@ router.delete('/posts/:post/delete', function(req, res, next) {
   })
 });
 
+// Delete Comments
 router.delete('/posts/:post/comments/:comment/delete', function(req, res, next) {
   console.log('HITTING DELETE COMMENT ROUTE');
   console.log(req.comment);
@@ -196,11 +210,6 @@ router.delete('/posts/:post/comments/:comment/delete', function(req, res, next) 
     }
     res.json(comment);
   })
-
 });
-
-// curl http://localhost:3000/posts/5843c16f3eb5398d4140bdd6/comments/5844eed731d7fd07c3d5ca55/delete
-
-
 
 module.exports = router;
