@@ -31,38 +31,32 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-text" ng-hide="isLoggedIn()">
               <a class="nav-text" href="/#/register">
-                <span class="glyphicon glyphicon-user"></span>
-                Sign Up
+                <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="bottom" title="Register"></span>
               </a>
             </li>
             <li class="nav-text" ng-hide="isLoggedIn()">
               <a class="nav-text" href="/#/login">
-                <span class="glyphicon glyphicon-log-in"></span>
-                Login
+                <span class="glyphicon glyphicon-log-in" data-toggle="tooltip" data-placement="bottom" title="Login"></span>
               </a>
             </li>
           </ul>
-
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-text" ng-show="isLoggedIn()">
               <a class="nav-text">Welcome, {{ currentUser() }}!</a>
             </li>
             <li class="nav-text">
               <a class="nav-text" href="/#/home">
-                <span class="glyphicon glyphicon-home"></span>
-                Home
+                <span class="glyphicon glyphicon-home" data-toggle="tooltip" data-placement="bottom" title="Home"></span>
               </a>
             </li>
             <li class="nav-text" ng-show="isLoggedIn()">
               <a class="nav-text">
-                <span class="glyphicon glyphicon-envelope"></span>
-                Messages
+                <span class="glyphicon glyphicon-envelope" data-toggle="tooltip" data-placement="bottom" title="Messages"></span>
               </a>
             </li>
             <li class="nav-text" ng-show="isLoggedIn()">
               <a class="nav-text" ng-click="logOut()">
-                <span class="glyphicon glyphicon-log-out"></span>
-                Logout
+                <span class="glyphicon glyphicon-log-out" data-toggle="tooltip" data-placement="bottom" title="LogOut"></span>
               </a>
             </li>
           </ul>
@@ -70,6 +64,7 @@
       </div>
     </nav>
     <!-- End of NavBar -->
+
     <div id="container">
       <ui-view></ui-view>
     </div>
@@ -98,7 +93,6 @@
         </div>
         <hr>
       </div>
-
       <div ng-hide="isLoggedIn()">
         <h3><a class="text-link" href="/#/login">Login</a> or <a class="text-link" href="/#/register">sign up</a> to join the conversation!</h3>
         <hr>
@@ -188,7 +182,6 @@
           <hr>
         </div>
       </div>
-
       <div ng-repeat="comment in post.comments | orderBy: sortType">
         <div class="comment-votes">
           <p><span class="glyphicon glyphicon-chevron-up" ng-click="upvote(comment)"></span></p>
@@ -198,6 +191,7 @@
         <div class="comment-info">
           <p class="timestamps"><a class="text-link" href="">{{ comment.author }}</a> says...<p>
           <p>{{ comment.body }}</p>
+          <span class="glyphicon glyphicon-remove" ng-click="delete(comment)" ng-show="isLoggedIn()"></span>
           <p class="timestamps">{{ comment.created_at | date: 'h:mm a | MMMM d, y' }}</p>
         </div>
         <hr>
@@ -260,11 +254,11 @@
     <!-- End of Login Page -->
 
     <!-- Start of Footer -->
-    <div class="navbar navbar-default navbar-fixed-bottom">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
       <div class="container">
-        <p class="navbar-text pull-left" style="color: white; font-size: 16px;">© 2016 bakeit, All Rights Reserved | Built By Preeya Sharma</p>
+        <p class="navbar-text pull-right" style="color: white;">© 2016 bakeit, All Rights Reserved | Built By Preeya Sharma</p>
       </div>
-    </div>
+    </nav>
     <!-- End of Footer -->
 
   </body>

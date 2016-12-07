@@ -178,7 +178,7 @@ router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, n
 // <------------------ DELETE Routes (Posts, Comments) ------------------>
 
 router.delete('/posts/:post/delete', function(req, res, next) {
-  console.log('HITTING DELETE ROUTE');
+  console.log('HITTING DELETE POST ROUTE');
   req.post.remove(function (err, post) {
     if (err) {
       return next(err);
@@ -188,14 +188,18 @@ router.delete('/posts/:post/delete', function(req, res, next) {
 });
 
 router.delete('/posts/:post/comments/:comment/delete', function(req, res, next) {
-  console.log('HITTING DELETE ROUTE');
+  console.log('HITTING DELETE COMMENT ROUTE');
+  console.log(req.comment);
   req.comment.remove(function (err, comment) {
     if (err) {
       return next(err);
     }
     res.json(comment);
   })
+
 });
+
+// curl http://localhost:3000/posts/5843c16f3eb5398d4140bdd6/comments/5844eed731d7fd07c3d5ca55/delete
 
 
 

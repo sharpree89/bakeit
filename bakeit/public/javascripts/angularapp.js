@@ -136,8 +136,6 @@ angular.module("bakeit", ["ui.router"])
 
   obj.delete = function(post) {
     return $http.delete('/posts/' + post._id + '/delete', post).success(function(data){
-      console.log('LINE 139 POSTS FACTORY');
-      console.log(data);
     });
   }
 
@@ -180,13 +178,11 @@ angular.module("bakeit", ["ui.router"])
   };
 
   obj.deleteComment = function(post, comment) {
-    console.log('LINE 183 POSTS FACTORY');
-    console.log('Post ID: ' + post._id); //this prints
-    console.log('Comment ID: ' + comment._id); //this does not print
+    console.log('Post ID: ' + post._id);
+    console.log('Comment ID: ' + comment._id);
     return $http.delete('/posts/' + post._id + '/comments/' + comment._id + '/delete', comment).success(function(data){
-      console.log('LINE 185 POSTS FACTORY');
-      console.log(data);
     });
+
   }
 
   return obj;
@@ -242,11 +238,14 @@ angular.module("bakeit", ["ui.router"])
 
     $scope.delete = function(post) {
       console.log('LINE 239 MAIN CONTROLLER');
-      console.log('Post ID: ' + post._id); //this prints
-      postsFact.delete(post);
-      $window.location.reload();
+      console.log('Post ID: ' + post._id + 'Post Author: ' + post.author + auth.currentUser()); //this prints
+      if (auth.currentUser() === post.author) {
+        postsFact.delete(post);
+        $window.location.reload();
+      } else {
+        return false;
+      }
     }
-
   }])
 
   .controller("postsCont", [
@@ -292,9 +291,14 @@ angular.module("bakeit", ["ui.router"])
       }
 
       $scope.delete = function(comment) {
-        console.log('HITTING POSTS CONTROLLER');
-        postsFact.deleteComment(post, comment);
-        $window.location.reload();
+        console.log('LINE 291 POST CONTROLLER');
+        console.log('Comment ID: ' + comment._id + 'Comment Author: ' + comment.author + auth.currentUser());
+        if (auth.currentUser() === comment.author) {
+          postsFact.deleteComment(post, comment);
+          $window.location.reload();
+        } else {
+          return false;
+        }
       }
 
     }])
@@ -335,7 +339,7 @@ angular.module("bakeit", ["ui.router"])
   .filter("commaBreak",
     function() {
       return function(value) {
-        if (!value.length) {
+        if (!value) {
           return;
         }
         return value.split(',');
