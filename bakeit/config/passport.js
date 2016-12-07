@@ -10,10 +10,10 @@ passport.use(new LocalStrategy(
         return done(err);
       }
       if (!user) {
-        return done(null, false, { message: 'Incorrect username, please try again.' });
+        return done(null, false, { message: 'Please check your username and try again.' });
       }
       if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password, please try again.' });
+        return done(null, false, { message: 'Please check your password and try again.' });
       }
       return done(null, user);
     });

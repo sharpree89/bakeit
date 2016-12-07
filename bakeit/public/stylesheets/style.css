@@ -1,24 +1,13 @@
 body {
   margin: auto;
-  width: 50%;
+  width: 100%;
   font-family: 'Nunito', sans-serif;
 }
 
-.navbar {
-  background-color: #FFEBEF;
-  border: 5px solid #FFEBEF;
-  border-radius: 5px;
-}
-
-img {
-  width: 64px;
-  height: auto;
-}
-
-.logo {
-  font-family: 'Berkshire Swash', cursive;
-  font-size: 40px;
-  color: brown;
+#container {
+  width: 60%;
+  margin: auto;
+  margin-top: 10%;
 }
 
 input {
@@ -26,27 +15,158 @@ input {
   margin: 1% 0 1% 0;
   padding: 1%;
 }
-.glyphicon-thumbs-up, .glyphicon-thumbs-down {
+
+.form-control:focus {
+  border: 2px solid #4dd0e1;
+  box-shadow: none !important;
+}
+
+hr {
+  border-color: #fc9fd8;
+  opacity: 0.3;
+}
+
+.error {
+  margin-top: 20%;
+  background-color: #f76a6a;
+  padding: 6px;
+  border: 6px solid #f76a6a;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+}
+
+.glyphicon-exclamation-sign {
+  color: white;
+  font-size: 20px;
+  cursor: none;
+}
+
+#footer {
+  text-align: center;
+  margin-bottom: 0;
+  background-color: #4dd0e1;
+  color: white;
+  font-size: 16px;
+  padding: 6px;
+  border: 6px solid #4dd0e1;
+  border-radius: 5px;
+}
+
+/*------------------- Navbar -------------------*/
+
+.navbar {
+  background-color: #4dd0e1;
+  padding: 10px !important;
+}
+
+.nav-text {
+  color: #e0f7fa !important;
+  font-size: 16px;
+}
+
+.nav-text:hover, .nav-text:active {
+  color: white !important;
+  font-weight: bolder;
   cursor: pointer;
 }
 
-a {
+img {
+  width: 50px;
+  height: auto;
+  float: left;
+  margin-right: 10px;
+}
+
+.navbar-brand {
+  font-family: 'Berkshire Swash', cursive;
+  font-size: 56px;
+  color: white !important;
+}
+
+.navbar-toggle {
+  border: 1px solid #e0f7fa !important;
+  color: #e0f7fa !important;
+  background-color: #4dd0e1 !important;
+  font-size: 16px;
+}
+
+.navbar-toggle:hover, .navbar-toggle:active{
+  color: white !important;
+  background-color: #00bcd4 !important;
+  border: 1px solid white !important;
+}
+
+/*------------------- Icons, Links, Buttons -------------------*/
+
+.glyphicon-chevron-up, .glyphicon-chevron-down, .glyphicon-remove, .glyphicon-tags, .glyphicon-link {
+  color: #bcbaba;
+}
+
+.glyphicon-chevron-up:hover, .glyphicon-chevron-down:hover, .glyphicon-remove:hover {
+  color: #4dd0e1;
   cursor: pointer;
+}
+
+.text-link {
+  color: #f970c2 !important;
+  font-weight: bold;
+}
+
+.text-link-comments {
+  color: #00bcd4 !important;
+  font-weight: bold;
+}
+
+.text-link:hover, .text-link:active {
+  color: #fc9fd8 !important;
+  text-decoration: none !important;
+}
+
+.text-link-comments:hover, .text-link-comments:active {
+  color: #4dd0e1 !important;
+  text-decoration: none !important;
+}
+
+.btn {
+  background-color: #f970c2 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.btn:hover, .btn:active {
+  background-color: #fc9fd8 !important;
+  border: none !important;
+  outline: none !important;
+
+}
+
+/*------------------- Text Styling -------------------*/
+
+/* all bold light-grey <p> text throughout site */
+.timestamps {
+  color: #bcbaba;
 }
 
 ul li {
   list-style-type: none;
-  padding-bottom: 1%;
+  /*padding-bottom: 1%;*/
 }
 
+.vote-text {
+  color: #bcbaba;
+  font-weight: bolder;
+}
+
+/*------------------- Home Page Layout -------------------*/
+
 .posts {
-  border: 1px dotted magenta;
+  border: 1px solid #4dd0e1;
   border-radius: 5px;
   margin-bottom: 10px;
   padding-left: 10px;
 }
 
-/*on home page*/
 .postInfo {
   margin-left: 5%;
 }
@@ -58,8 +178,14 @@ ul li {
   display: inline-block;
 }
 
-.votes p {
+.votes p, .post-votes p, .comment-votes p {
   margin: 0;
+}
+
+/*------------------- Comments Page Layout -------------------*/
+
+.post-info {
+  margin-top: 0;
 }
 
 .post-votes {
@@ -69,58 +195,36 @@ ul li {
   margin-right: 2.5%;
 }
 
-.post-votes p {
-  margin: 0;
-}
-
-.label-default {
-  padding: 0.75% 1.5%;
-  margin: 0 0.75%;
-  font-size: 13px;
-  background-color: magenta;
-  text-align: center;
-  border-radius: 20px !important;
-}
-
-/*on comments page*/
-.post-info {
-  margin-top: 0;
-}
-
 .comment-votes {
   float: left;
   text-align: center;
   display: inline-block;
 }
 
-.comment-votes p {
-  margin: 0;
-}
-
 .comment-info {
   margin-left: 5%;
-
-}
-
-.striped {
-  background-color: #E5FFE5;
-  border-radius: 5px;
-  border: 1px dotted green;
-}
-
-.glyphicon {
-  cursor: pointer;
-  padding-right: 2%;
 }
 
 .post-body {
-  border: 1px dotted magenta;
+  border: 1px solid #4dd0e1;
   border-radius: 5px;
   padding: 10px 10px 30px 10px;
-  background-color: #FFEBEF;
-  margin-bottom: 5%;
+  margin-bottom: 2.5%;
 }
 
 .comment-box {
   border-radius: 5px;
+}
+
+.glyphicon-tags {
+  margin-right: 4px;
+}
+
+.label-default {
+  padding: 3px 4px;
+  margin: 0 2px;
+  background-color: #4dd0e1;
+  text-align: center;
+  font-size: 12px;
+  /*border-radius: 20px !important;*/
 }

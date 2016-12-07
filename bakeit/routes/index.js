@@ -34,7 +34,13 @@ router.get('/posts/:post', function(req, res) {
 
 router.post('/register', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
-    return res.status(400).json({ message: 'Please fill out all fields.' });
+    return res.status(400).json({ message: 'Please do not leave any fields blank.' });
+  }
+  if (req.body.username.length < 6 || req.body.username.length > 18) {
+    return res.status(400).json({ message: 'Username must have between 6 and 18 characters.' });
+  }
+  if (req.body.password.length < 8) {
+    return res.status(400).json({ message: 'Password must have at least 8 characters.' });
   }
 
   var user = new User();
@@ -51,7 +57,7 @@ router.post('/register', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
-    return res.status(400).json({ message: 'Please fill out all fields.' });
+    return res.status(400).json({ message: 'Please do not leave any fields blank.' });
   }
 
   passport.authenticate('local', function(err, user, info) {
@@ -111,7 +117,7 @@ router.param('post', function(req, res, next, id) {
       return next(err);
     }
     if (!post) {
-      return next(new Error("We can't find that post!"));
+      return next(new Error("Sorry, we couldn't find that post!"));
     }
     req.post = post;
     return next();
@@ -126,7 +132,7 @@ router.param('comment', function(req, res, next, id) {
       return next(err);
     }
     if (!comment) {
-      return next(new Error("We can't find that comment!"));
+      return next(new Error("Sorry, we couldn't find that comment!"));
     }
     req.comment = comment;
     return next();

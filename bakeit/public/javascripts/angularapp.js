@@ -172,7 +172,7 @@ angular.module("bakeit", ["ui.router"])
   };
 
   obj.downvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', {
+    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', null, {
       headers: { Authorization: 'Bearer ' + auth.getToken() }
     }).success(function(data) {
       comment.score -= 1;
@@ -203,6 +203,9 @@ angular.module("bakeit", ["ui.router"])
 
     $scope.posts = postsFact.posts;
     $scope.isLoggedIn = auth.isLoggedIn;
+
+    $scope.sortType = "-score"; // sorting by top score as default
+    $scope.searchPosts = ""; //default search/filter item
 
     $scope.addPost = function() {
       if($scope.title) {
@@ -256,6 +259,8 @@ angular.module("bakeit", ["ui.router"])
     function($scope, $stateParams, postsFact, post, auth, $window) {
       $scope.post = post;
       $scope.isLoggedIn = auth.isLoggedIn;
+
+      $scope.sortType = "-score"; // sorting by top score as default
 
       $scope.addComment = function() {
         if($scope.body) {
