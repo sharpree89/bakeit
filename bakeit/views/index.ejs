@@ -112,9 +112,14 @@
         <hr>
       </div>
 
+      <div ng-if="posts.length === 0">
+        <hr>
+        <p style="font-size: 20px;">It's a little quiet in here. Get this party started!</p>
+      </div>
+
       <div ng-hide="isLoggedIn()">
         <h3>
-          <a class="text-link" href="/#/login">Login</a> or <a class="text-link" href="/#/register">sign up</a> to join the conversation!
+          <a class="text-link" href="/#/login">Login</a> or <a class="text-link" href="/#/register">sign up</a> to join the conversation.
         </h3>
         <hr>
       </div>
@@ -133,15 +138,14 @@
         <div class="postInfo">
           <h4>
             <a class="text-link" href="#/posts/{{ post._id }}">{{ post.title }}</a>
-            <span ng-show="post.link" class="glyphicon glyphicon-link"></span>
+            <a href="{{ post.link }}"><span ng-show="post.link" class="glyphicon glyphicon-link" data-toggle="tooltip" data-placement="right" title="{{ post.link }}"></span></a>
           </h4>
           <p class="timestamps">{{ post.created_at | date: 'h:mm a | MMMM d, y' }} by
-            <a class="text-link" href="">{{ post.author }}</a>
-            <span class="glyphicon glyphicon-remove" ng-click="delete(post)" ng-show="isLoggedIn()"></span>
+            <a class="text-link" href="">{{ post.author }}</a> | <span class="glyphicon glyphicon-trash" ng-click="delete(post)" ng-show="isLoggedIn()"></span>
           </p>
           <p>
             <span>
-              <a class="text-link-comments" href="#/posts/{{ post._id }}">{{ post.comments.length }} comment(s)</a>
+              <a class="text-link-comments" href="#/posts/{{ post._id }}"><span class="glyphicon glyphicon-comment"></span> {{ post.comments.length }}</a>
             </span>
           </p>
         </div>
@@ -221,7 +225,7 @@
       <div ng-hide="isLoggedIn()">
         <h3>
           <a class="text-link" href="/#/login">Login</a> or <a class="text-link" href="/#/register">sign up</a>
-          to join the conversation!
+          to join the conversation.
         </h3>
         <hr>
       </div>
@@ -265,8 +269,7 @@
             <a class="text-link" href="">{{ comment.author }}</a> says...
           </p>
           <p>{{ comment.body }}</p>
-          <span class="glyphicon glyphicon-remove" ng-click="delete(comment)" ng-show="isLoggedIn()"></span>
-          <p class="timestamps">{{ comment.created_at | date: 'h:mm a | MMMM d, y' }}</p>
+          <p class="timestamps">{{ comment.created_at | date: 'h:mm a | MMMM d, y' }} | <span class="glyphicon glyphicon-trash" ng-click="delete(comment)" ng-show="isLoggedIn()"></span></p>
         </div>
         <hr>
       </div>
@@ -297,11 +300,11 @@
         <h1 style="color: #00bcd4; font-weight: bolder;">Sign Up</h1>
         <hr>
         <div class="form-group">
-          <label for="username" class="timestamps">Username must have between 6 and 18 characters</label>
+          <label for="username" class="timestamps">Username (6 to 18 characters)</label>
           <input id="username" type="text" class="form-control" ng-model="user.username" style="width: 50%;">
         </div>
         <div class="form-group">
-          <label for="password" class="timestamps">Password must have at least 8 characters</label>
+          <label for="password" class="timestamps">Password (8 characters or more)</label>
           <input id="password" type="password" class="form-control" ng-model="user.password" style="width: 50%;">
         </div>
         <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -334,7 +337,7 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
       <hr>
-      <a class="text-link" href="/#/register">Don't have an account? Sign up today!</a>
+      <a class="text-link" href="/#/register" style="font-size: 20px !important;">Don't have an account? Sign up today!</a>
     </script>
     <!-- End of Login Page -->
 

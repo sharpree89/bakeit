@@ -9,9 +9,9 @@ body {
 }
 
 #container {
-  width: 60%;
+  width: 80%;
   margin: auto;
-  margin-top: 2.5%;
+  margin-top: 5%;
 }
 
 input {
@@ -31,7 +31,7 @@ hr {
 }
 
 .error {
-  margin-top: 20%;
+  margin-top: 5%;
   background-color: #f76a6a;
   padding: 6px;
   border: 6px solid #f76a6a;
@@ -89,13 +89,21 @@ img {
   border: 1px solid white !important;
 }
 
+.glyphicon-home, .glyphicon-user, .glyphicon-log-in, .glyphicon-envelope, .glyphicon-log-out {
+  font-size: 20px;
+}
+
 /*------------------- Icons, Links, Buttons -------------------*/
 
-.glyphicon-chevron-up, .glyphicon-chevron-down, .glyphicon-remove, .glyphicon-tags, .glyphicon-link {
+.glyphicon-trash {
+  font-size: 15px;
+}
+
+.glyphicon-chevron-up, .glyphicon-chevron-down, .glyphicon-trash, .glyphicon-tags, .glyphicon-link {
   color: #bcbaba;
 }
 
-.glyphicon-chevron-up:hover, .glyphicon-chevron-down:hover, .glyphicon-remove:hover {
+.glyphicon-chevron-up:hover, .glyphicon-chevron-down:hover, .glyphicon-trash:hover, .glyphicon-link:hover {
   color: #4dd0e1;
   cursor: pointer;
 }
@@ -105,9 +113,10 @@ img {
   font-weight: bold;
 }
 
-.text-link-comments {
+.text-link-comments, .glyphicon-comment {
   color: #00bcd4 !important;
   font-weight: bold;
+  margin-right: 1%;
 }
 
 .text-link:hover, .text-link:active {
@@ -115,7 +124,7 @@ img {
   text-decoration: none !important;
 }
 
-.text-link-comments:hover, .text-link-comments:active {
+.text-link-comments:hover, .text-link-comments:active, .glyphicon-comment:hover, .glyphicon-comment:active {
   color: #4dd0e1 !important;
   text-decoration: none !important;
 }
@@ -124,15 +133,24 @@ img {
   background-color: #f970c2 !important;
   border: none !important;
   outline: none !important;
+  padding: 1% 4%;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .btn:hover, .btn:active {
   background-color: #fc9fd8 !important;
   border: none !important;
   outline: none !important;
-
 }
 
+.dropdown-toggle {
+  padding: 1% 3%;
+}
+
+.dropdown-menu li {
+  cursor: pointer;
+}
 /*------------------- Text Styling -------------------*/
 
 /* all bold light-grey <p> text throughout site */
@@ -213,10 +231,9 @@ ul li {
 }
 
 .label-default {
-  padding: 3px 4px;
+  padding: 3px 8px;
   margin: 0 2px;
   background-color: #4dd0e1;
-  text-align: center;
   font-size: 12px;
-  /*border-radius: 20px !important;*/
+  cursor: default;
 }

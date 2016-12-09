@@ -75,11 +75,11 @@ angular.module("bakeit", ["ui.router"])
   var auth = {};
 
   auth.saveToken = function(token) {
-    $window.localStorage["bakeit-token"] = token;
+    $window.localStorage[] = token;
   };
 
   auth.getToken = function() {
-    return $window.localStorage["bakeit-token"];
+    return $window.localStorage[];
   };
 
   // verify that a user is currently logged in (to be used on client-side)
@@ -117,7 +117,7 @@ angular.module("bakeit", ["ui.router"])
   };
 
   auth.logOut = function(user) {
-    $window.localStorage.removeItem("bakeit-token");
+    $window.localStorage.removeItem();
   };
 
   return auth;
@@ -232,7 +232,7 @@ angular.module("bakeit", ["ui.router"])
           title: $scope.title,
           link: $scope.link,
           body: $scope.body,
-          tags: $scope.tags
+          tags: $scope.tags.toLowerCase()
         });
         // clear forms after submission
         $scope.title = "";
