@@ -75,11 +75,11 @@ angular.module("bakeit", ["ui.router"])
   var auth = {};
 
   auth.saveToken = function(token) {
-    $window.localStorage[] = token;
+    $window.localStorage["bakeit-token"] = token;
   };
 
   auth.getToken = function() {
-    return $window.localStorage[];
+    return $window.localStorage["bakeit-token"];
   };
 
   // verify that a user is currently logged in (to be used on client-side)
@@ -117,7 +117,7 @@ angular.module("bakeit", ["ui.router"])
   };
 
   auth.logOut = function(user) {
-    $window.localStorage.removeItem();
+    $window.localStorage.removeItem("bakeit-token");
   };
 
   return auth;
