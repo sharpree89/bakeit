@@ -166,14 +166,6 @@ angular.module("bakeit", ["ui.router"])
     })
   };
 
-  obj.downvote = function(post) {
-    return $http.put('/posts/' + post._id + '/downvote', null, {
-      headers: { Authorization: 'Bearer ' + auth.getToken() }
-    }).success(function(data) {
-      post.score -= 1;
-    })
-  };
-
   // Comment Methods
 
   obj.addComment = function(id, comment) {
@@ -190,20 +182,14 @@ angular.module("bakeit", ["ui.router"])
     })
   };
 
-  obj.downvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', null, {
-      headers: { Authorization: 'Bearer ' + auth.getToken() }
-    }).success(function(data) {
-      comment.score -= 1;
-    })
-  };
-
   obj.deleteComment = function(post, comment) {
+    console.log('HITTING POSTS FACT LINE 204')
     console.log('Post ID: ' + post._id);
     console.log('Comment ID: ' + comment._id);
     return $http.delete('/posts/' + post._id + '/comments/' + comment._id + '/delete', comment).success(function(data){
-    });
-  }
+      console.log('SUCCESSFULLY WENT TO INDEX.JS');
+    })
+  };
 
   return obj;
 }])
@@ -232,7 +218,7 @@ angular.module("bakeit", ["ui.router"])
           title: $scope.title,
           link: $scope.link,
           body: $scope.body,
-          tags: $scope.tags.toLowerCase()
+          tags: $scope.tags
         });
         // clear forms after submission
         $scope.title = "";
@@ -245,18 +231,11 @@ angular.module("bakeit", ["ui.router"])
       }
     }
 
-    // To Do: fix upvoting (user can upvote/downvote indefinitely if refresh page or log out)
+    // To Do: fix upvoting (user can upvote indefinitely if refresh page or log out)
     $scope.upvote = function(post) {
       if(!post.hadUpVoted) {
         postsFact.upvote(post);
         post.hadUpVoted = true;
-      }
-    }
-
-    $scope.downvote = function(post) {
-      if (!post.hadDownVoted) {
-        postsFact.downvote(post);
-        post.hadDownVoted = true;
       }
     }
 
@@ -304,7 +283,7 @@ angular.module("bakeit", ["ui.router"])
         }
       }
 
-      // To Do: fix upvoting (user can upvote/downvote indefinitely if refresh page or log out)
+      // To Do: fix upvoting (user can upvote indefinitely if refresh page or log out)
       $scope.upvote = function(comment) {
         if (!comment.hadUpVoted) {
           postsFact.upvoteComment(post, comment);
@@ -312,17 +291,11 @@ angular.module("bakeit", ["ui.router"])
         }
       }
 
-      $scope.downvote = function(comment) {
-        if (!comment.hadDownVoted) {
-          postsFact.downvoteComment(post, comment);
-          comment.hadDownVoted = true;
-        }
-      }
-
       // To Do: Figure out how to update post.comments.length after a comment has been deleted
       // number does not update on homepage
       $scope.delete = function(comment) {
-        console.log('LINE 325 POST CONTROLLER');
+        $scope.deleteError = false;
+        console.log('LINE 329 POST CONTROLLER');
         console.log('Comment ID: ' + comment._id + 'Comment Author: ' + comment.author);
         console.log('Current User: ' + auth.currentUser());
         if (auth.currentUser() === comment.author) {
@@ -330,6 +303,7 @@ angular.module("bakeit", ["ui.router"])
           // force refresh to indicate the post has been deleted
           $window.location.reload();
         } else {
+          $scope.deleteError = true;
           return false;
         }
       }

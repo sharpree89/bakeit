@@ -13,9 +13,4 @@ CommentSchema.methods.upvote = function(callback) {
   this.save(callback);
 }
 
-CommentSchema.methods.downvote = function(callback) {
-  this.score -= 1;
-  this.save(callback);
-}
-
 mongoose.model('Comment', CommentSchema);
