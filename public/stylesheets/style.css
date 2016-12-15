@@ -4,15 +4,14 @@
 body {
   margin: auto;
   width: 100%;
-  font-family: 'Muli', sans-serif;
-  padding-bottom: 100px;
-  background-color: #dbfaff;
+  font-family: 'Poppins', sans-serif;
+  padding-bottom: 50px;
+  background-color: rgba(209, 255, 244, 1);
 }
 
 #container {
   width: 80%;
   margin: auto;
-  margin-top: 1%;
 }
 
 p {
@@ -28,16 +27,24 @@ label {
   color: #333;
   opacity: 0.5;
   cursor: pointer;
-  /*font-weight: normal !important;*/
 }
 
 a {
-  color: #f95e7d !important;
+  color: #ec00ae;
 }
 
 a:hover, a:active {
-  color: #f95e7d !important;
+  color: #ec00ae;
   cursor: pointer;
+}
+
+.login-link {
+  color: white !important;
+  text-decoration: none;
+}
+
+.login-link:hover, .login-link:active {
+  text-decoration: underline;
 }
 
 input {
@@ -54,19 +61,20 @@ input {
 }
 
 .form-control:focus {
-  border: 1px solid turquoise;
+  border: 1px solid #ec00ae;
   box-shadow: none !important;
 }
 
 .form-header {
-  background-color: white;
+  background-color: #333;
+  color: white;
   font-size: 2.5rem;
   padding: 1%;
   text-align: center;
   box-shadow: 1px 1px 5px grey;
   margin-bottom: 2.5%;
-
 }
+
 textarea {
   border-radius: 0px !important;
   padding-top: 12px !important;
@@ -75,23 +83,17 @@ textarea {
 
 hr {
   border-color: #333;
-  opacity: 0.3;
+  opacity: 0.25;
 }
 
 /*------------------- Page Header -------------------*/
 
-#page-header {
+/*#page-header {
   width: 100%;
   padding-top: 4%;
-  /*background-color: lightgrey;
+  background-color: lightgrey;
   background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,.5) 50%);
-  background-size: 50px 50px;*/
-
-  /*background-color: ;*/
-  background-image: radial-gradient(white 15%, transparent 16%),
-  radial-gradient(white 15%, transparent 16%);
-  background-size: 60px 60px;
-  background-position: 0 0, 30px 30px;
+  background-size: 50px 50px;
 }
 
 #header-text {
@@ -105,96 +107,143 @@ hr {
   display: inline-block;
   margin: 0;
   padding: 0;
-}
+}*/
 
 /*------------------- Navbar/Footer -------------------*/
 
 .navbar-default {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.75);
   box-shadow: 1px 1px 5px grey;
 }
 
 .container-fluid {
   text-align: center;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .nav-text {
-  font-size: 2rem;
+  font-size: 2.25rem;
   color: #333 !important;
-  padding-right: 1%;
+  padding: 1%;
+  font-weight: bold !important;
 }
 
 .nav-text:hover, .nav-text:active {
-  color: #f95e7d !important;
+  background-color: #333;
+  color: white !important;
   cursor: pointer;
 }
 
 .middle {
-  float: none !important;
-  display: inline-block;
+  width: 100%;
+}
+
+.logo {
+  margin-top: 120px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.logo h1 {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 650%;
+  font-weight: bold;
+}
+
+.logo h2 {
+  font-family: 'Homemade Apple', cursive;
 }
 
 /*------------------- Icons, Links, Buttons -------------------*/
 
+
+/*---- Regular Buttons ----*/
 .btn {
   border-radius: 0px !important;
   background-color: #333 !important;
-  border: none !important;
+  color: white !important;
+  border: 1.5px solid #333 !important;
   outline: none !important;
   padding: 12px 36px !important;
-  font-size: 1em;
+  font-size: 1.75rem;
 }
 
 .btn:hover, .btn:active {
   cursor: pointer;
-  background-color: #f95e7d !important;
-  border: none !important;
+  background-color: white !important;
+  color: #333 !important;
+  border: 1.5px solid #333 !important;
   outline: none !important;
 }
 
 .btn a {
   color: white !important;
-  font-size: 14px;
+  font-size: 18px;
   text-decoration: none !important;
 }
 
+/*---- Button Group ----*/
+
 .btn-group {
+  margin-bottom: 1%;
 }
 
 .btn-group button {
   background-color: white !important;
-  font-family: 'Muli', sans-serif;
-  font-style: normal !important;
-  font-weight: bold;
+  color: #333 !important;
   border: 1px solid lightgrey !important;
-  padding: 4px 12px !important;
+  padding: 6px 12px 4px 12px !important;
 }
 
-.btn-group button, .btn-group .glyphicon, .btn-group a {
+.btn-group a {
   color: #333 !important;
+  font-size: 14px !important;
 }
 
-.btn-group button:hover, .btn-group .glyphicon:hover, .btn-group a:hover {
-  color: #333 !important;
+.btn-group .glyphicon, .btn-group span {
+  font-size: 14px !important;
+}
+
+.btn-group .glyphicon-heart {
+  color: #ec00ae !important;
+}
+
+.btn-group button:hover, .btn-group a:hover {
   background-color: lightgrey !important;
+  color: #333 !important;
+  border: 1px solid lightgrey !important;
 }
 
+.btn-group button:active, .btn-group a:active {
+  background-color: lightgrey !important;
+  color: #333 !important;
+  border: 1px solid lightgrey !important;
+}
+
+/*---- Drop Down Menu ----*/
 .dropdown-menu a {
   color: #333 !important;
 }
 
 .dropdown-menu a:hover, .dropdown-menu a:active {
-  color: #f95e7d !important;
-
+  color: #ec00ae !important;
 }
+
+/*---- Glyphicons ----*/
 
 .glyphicon {
   color: #333;
   font-size: 14px;
 }
 
-.glyphicon-link:hover, .glyphicon-heart:hover, .glyphicon-trash:hover {
-  color: #f95e7d;
+.glyphicon-link:hover, .glyphicon-trash:hover {
+  color: #ec00ae;
+  cursor: pointer;
+}
+
+.glyphicon-link:active, .glyphicon-trash:active {
+  color: #ec00ae;
   cursor: pointer;
 }
 
@@ -213,7 +262,7 @@ hr {
 }
 
 #addPost {
-  background-color: #dbfaff;
+  background-color: rgba(209, 255, 244, 1);
 }
 
 .tags {
@@ -232,11 +281,11 @@ hr {
   border-radius: 20px !important;
 }
 
-.label-default:hover {
+.label-default:hover, .label-default:active {
   cursor: pointer;
   background-color: white;
-  border: 1.5px solid #f95e7d;
-  color: #f95e7d !important;
+  border: 1.5px solid #ec00ae;
+  color: #ec00ae !important;
 }
 
 /*------------------- Comments Page Layout -------------------*/
@@ -294,7 +343,6 @@ hr {
 
 #login h1, #register h1, #error h1 {
   margin-top: 2%;
-
 }
 
 .error {

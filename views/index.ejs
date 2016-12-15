@@ -6,7 +6,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Muli|Playfair+Display|Roboto+Slab" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Muli|Playfair+Display|Poppins" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
 
@@ -29,38 +29,43 @@
   <body ng-app="bakeit" ng-controller="mainCont">
 
     <!-- PAGE HEADER -->
-    <div id="page-header">
+    <!-- <div id="page-header">
       <div id="header-text">
         <h1>Bakeit</h1>
       </div>
-    </div>
+    </div> -->
 
     <!-- START OF NAVBAR -->
-    <nav class="navbar navbar-default" ng-controller="navCont">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="navCont">
       <div class="container-fluid">
         <ul class="nav navbar-nav middle">
           <li class="nav-text" ng-show="isLoggedIn()">
-            <a class="nav-text">Welcome, {{ currentUser() }}</a>
+            <a class="nav-text">WELCOME, {{ currentUser() | uppercase }}</a>
           </li>
           <li class="nav-text">
-            <a class="nav-text" href="/#/">Home</a>
+            <a class="nav-text" href="/#/">HOME</a>
           </li>
           <li class="nav-text" ng-hide="isLoggedIn()">
-            <a class="nav-text" href="/#/register">Sign Up</a>
+            <a class="nav-text" href="/#/register">SIGN UP</a>
           </li>
           <li class="nav-text" ng-hide="isLoggedIn()">
-            <a class="nav-text" href="/#/login">Login</a>
+            <a class="nav-text" href="/#/login">LOGIN</a>
           </li>
           <li class="nav-text" ng-show="isLoggedIn()">
-            <a class="nav-text">Inbox</a>
+            <a class="nav-text">INBOX</a>
           </li>
           <li class="nav-text" ng-show="isLoggedIn()">
-            <a class="nav-text" ng-click="logOut()">Log Out</a>
+            <a class="nav-text" ng-click="logOut()">LOG OUT</a>
           </li>
         </ul>
       </div>
     </nav>
     <!-- End of NavBar -->
+
+    <div class="logo">
+      <h1>Bakeit</h1>
+      <h2>baking, decorating, sharing and more</h2>
+    </div>
 
     <div id="container">
       <ui-view></ui-view>
@@ -76,7 +81,7 @@
 
           <!-- Sorting Posts -->
           <div class="dropdown" style="display: inline-block; vertical-align: bottom; float: right;">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sorted By
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">SORTED BY
             <span class="caret" aria-hidden="true"></span></button>
             <ul class="dropdown-menu">
               <li ng-click="sortType='-score'">
@@ -98,7 +103,7 @@
 
       <div ng-hide="isLoggedIn()">
         <h1 class="form-header">
-          <a class="text-link" href="/#/login">Login</a> or <a class="text-link" href="/#/register">Sign Up</a> to join the conversation!
+          <a class="login-link" href="/#/login">Login</a> or <a class="login-link" href="/#/register">Sign Up</a> to join the conversation!
         </h1>
       </div>
 
@@ -131,7 +136,7 @@
               <span>
                 <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                 <span class="sr-only">Like this post</span>
-                {{ post.score }}
+                <span>{{ post.score }}</span>
               </span>
             </button>
           </div>
@@ -146,7 +151,7 @@
 
       <!-- Form to add a new post -->
       <div id="addPost" ng-show="isLoggedIn()">
-        <h1 class="form-header">Add A Post</h1>
+        <h1 class="form-header">ADD A POST</h1>
         <form ng-submit="addPost()">
           <div class="form-group">
             <label for="title" class="timestamps" data-toggle="tooltip" data-placement="right" title="Required">
@@ -172,7 +177,7 @@
             </label>
             <textarea class="form-control" rows="5" ng-model="body" id="body"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">SUBMIT</button>
         </form>
       </div>
     </script>
@@ -246,14 +251,14 @@
 
       <div ng-hide="isLoggedIn()">
         <h1 class="form-header">
-          <a class="text-link" href="/#/login">Login</a> or <a class="text-link" href="/#/register">Sign Up</a>
+          <a class="login-link" href="/#/login">Login</a> or <a class="login-link" href="/#/register">Sign Up</a>
           to join the conversation!
         </h1>
       </div>
 
       <!-- Sorting Comments -->
       <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sorted By
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">SORTED BY
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li ng-click="sortType='-score'">
@@ -303,11 +308,11 @@
 
       <!-- Form to add a new comment -->
       <form ng-submit="addComment()" ng-show="isLoggedIn()" class="comment-form">
-        <h1 class="form-header">Leave A Comment</h1>
+        <h1 class="form-header">LEAVE A COMMENT</h1>
         <div class="form-group">
           <textarea class="form-control" rows="5" ng-model="body" id="body"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">SUBMIT</button>
       </form>
 
     </script>
@@ -324,7 +329,7 @@
         </div>
         <!-- Form to register -->
         <form ng-submit="register()">
-          <h1 class="form-header">Sign Up</h1>
+          <h1 class="form-header">SIGN UP</h1>
           <div class="form-group">
             <label for="username" class="timestamps" data-toggle="tooltip" data-placement="right" title="Username must have between 6 and 18 characters"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Username</label>
             <input id="username" type="text" class="form-control input-text" ng-model="user.username">
@@ -333,7 +338,7 @@
             <label for="password" class="timestamps" data-toggle="tooltip" data-placement="right" title="Password must have at least 8 characters"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Password</label>
             <input id="password" type="password" class="form-control input-text" ng-model="user.password">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">SUBMIT</button>
         </form>
       </div>
     </script>
@@ -350,7 +355,7 @@
         </div>
         <!-- Form to login -->
         <form ng-submit="login()">
-          <h1 class="form-header">Login</h1>
+          <h1 class="form-header">LOGIN</h1>
           <div class="form-group">
             <label for="username" class="timestamps"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Username</label>
             <input id="username" type="text" class="form-control input-text" ng-model="user.username">
@@ -359,7 +364,7 @@
             <label for="password" class="timestamps"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Password</label>
             <input id="password" type="password" class="form-control input-text" ng-model="user.password">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">SUBMIT</button>
         </form>
         <hr>
         <a class="text-link" href="/#/register" style="font-size: 20px !important;">Don't have an account? Sign up today!</a>
@@ -374,7 +379,7 @@
         <h1 class="form-header">Oops, looks like we couldn't find that page!</h1>
         <h3>Error Code: 404</h3>
         <hr>
-        <button class="btn btn-primary"><a href="/#/">Home Page</a></button>
+        <button class="btn btn-primary"><a href="/#/">BACK TO HOME</a></button>
       </div>
     </script>
 
