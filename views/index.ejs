@@ -2,11 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bakeit</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Muli|Playfair+Display|Poppins" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Muli|Playfair+Display|Poppins:300,400" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
 
@@ -28,77 +29,79 @@
   </head>
   <body ng-app="bakeit" ng-controller="mainCont">
 
-    <!-- PAGE HEADER -->
-    <!-- <div id="page-header">
-      <div id="header-text">
-        <h1>Bakeit</h1>
-      </div>
-    </div> -->
-
     <!-- START OF NAVBAR -->
-    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="navCont">
-      <div class="container-fluid">
-        <ul class="nav navbar-nav middle">
-          <li class="nav-text" ng-show="isLoggedIn()">
-            <a class="nav-text">WELCOME, {{ currentUser() | uppercase }}</a>
-          </li>
-          <li class="nav-text">
-            <a class="nav-text" href="/#/">HOME</a>
-          </li>
-          <li class="nav-text" ng-hide="isLoggedIn()">
-            <a class="nav-text" href="/#/register">SIGN UP</a>
-          </li>
-          <li class="nav-text" ng-hide="isLoggedIn()">
-            <a class="nav-text" href="/#/login">LOGIN</a>
-          </li>
-          <li class="nav-text" ng-show="isLoggedIn()">
-            <a class="nav-text">INBOX</a>
-          </li>
-          <li class="nav-text" ng-show="isLoggedIn()">
-            <a class="nav-text" ng-click="logOut()">LOG OUT</a>
-          </li>
-        </ul>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="navCont">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">bakeit</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-text" ng-show="isLoggedIn()">
+              <a class="nav-text">Welcome, {{ currentUser() }}</a>
+            </li>
+            <li class="nav-text">
+              <a class="nav-text" href="/#/">Home</a>
+            </li>
+            <li class="nav-text" ng-hide="isLoggedIn()">
+              <a class="nav-text" href="/#/register">Sign Up</a>
+            </li>
+            <li class="nav-text" ng-hide="isLoggedIn()">
+              <a class="nav-text" href="/#/login">Login</a>
+            </li>
+            <li class="nav-text" ng-show="isLoggedIn()">
+              <a class="nav-text">Inbox</a>
+            </li>
+            <li class="nav-text" ng-show="isLoggedIn()">
+              <a class="nav-text" ng-click="logOut()">Log Out</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </nav>
-    <!-- End of NavBar -->
-
-    <div class="logo">
-      <h1>Bakeit</h1>
-      <h2>baking, decorating, sharing and more</h2>
     </div>
 
-    <div id="container">
-      <ui-view></ui-view>
-    </div>
+    <!-- END OF NAVBAR -->
+
+    <center>
+      <div id="container">
+        <ui-view></ui-view>
+      </div>
+    </center>
 
     <!-- START OF HOME PAGE -->
     <script type="text/ng-template" id="/index.html">
 
       <!-- Searching Posts -->
-      <div id="search-form">
-        <div class="form-group search-bar">
-          <input class="form-control input-text" ng-model="searchPosts" type="text" placeholder="Search" style="display: inline-block; width: 75%; vertical-align: bottom;">
+      <div class="form-group search-bar">
+        <input class="form-control input-text" id="searchbar" ng-model="searchPosts" type="text" placeholder="Search">
+      </div>
 
-          <!-- Sorting Posts -->
-          <div class="dropdown" style="display: inline-block; vertical-align: bottom; float: right;">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">SORTED BY
-            <span class="caret" aria-hidden="true"></span></button>
-            <ul class="dropdown-menu">
-              <li ng-click="sortType='-score'">
-                <a>Most Popular</a>
-              </li>
-              <li ng-click="sortType='score'">
-                <a>Least Popular</a>
-              </li>
-              <li ng-click="sortType='-created_at'">
-                <a>Newest</a>
-              </li>
-              <li ng-click="sortType='created_at'">
-                <a>Oldest</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+
+      <!-- Sorting Posts -->
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">SORTED BY
+        <span class="caret" aria-hidden="true"></span></button>
+        <ul class="dropdown-menu">
+          <li ng-click="sortType='-score'">
+            <a>Most Popular</a>
+          </li>
+          <li ng-click="sortType='score'">
+            <a>Least Popular</a>
+          </li>
+          <li ng-click="sortType='-created_at'">
+            <a>Newest</a>
+          </li>
+          <li ng-click="sortType='created_at'">
+            <a>Oldest</a>
+          </li>
+        </ul>
       </div>
 
       <div ng-hide="isLoggedIn()">
@@ -151,7 +154,7 @@
 
       <!-- Form to add a new post -->
       <div id="addPost" ng-show="isLoggedIn()">
-        <h1 class="form-header">ADD A POST</h1>
+        <h1 class="form-header">Add A Post</h1>
         <form ng-submit="addPost()">
           <div class="form-group">
             <label for="title" class="timestamps" data-toggle="tooltip" data-placement="right" title="Required">
@@ -308,13 +311,12 @@
 
       <!-- Form to add a new comment -->
       <form ng-submit="addComment()" ng-show="isLoggedIn()" class="comment-form">
-        <h1 class="form-header">LEAVE A COMMENT</h1>
+        <h1 class="form-header">Leave A Comment</h1>
         <div class="form-group">
           <textarea class="form-control" rows="5" ng-model="body" id="body"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">SUBMIT</button>
       </form>
-
     </script>
     <!-- End of Post/Comments Page -->
 
@@ -329,7 +331,7 @@
         </div>
         <!-- Form to register -->
         <form ng-submit="register()">
-          <h1 class="form-header">SIGN UP</h1>
+          <h1 class="form-header">Sign Up</h1>
           <div class="form-group">
             <label for="username" class="timestamps" data-toggle="tooltip" data-placement="right" title="Username must have between 6 and 18 characters"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Username</label>
             <input id="username" type="text" class="form-control input-text" ng-model="user.username">
@@ -355,7 +357,7 @@
         </div>
         <!-- Form to login -->
         <form ng-submit="login()">
-          <h1 class="form-header">LOGIN</h1>
+          <h1 class="form-header">Login</h1>
           <div class="form-group">
             <label for="username" class="timestamps"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Username</label>
             <input id="username" type="text" class="form-control input-text" ng-model="user.username">
@@ -379,7 +381,7 @@
         <h1 class="form-header">Oops, looks like we couldn't find that page!</h1>
         <h3>Error Code: 404</h3>
         <hr>
-        <button class="btn btn-primary"><a href="/#/">BACK TO HOME</a></button>
+        <a href="/#/" class="back">Back To Home Page</a>
       </div>
     </script>
 

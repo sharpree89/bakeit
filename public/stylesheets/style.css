@@ -5,13 +5,30 @@ body {
   margin: auto;
   width: 100%;
   font-family: 'Poppins', sans-serif;
+  font-weight: 300 !important;
   padding-bottom: 50px;
-  background-color: rgba(209, 255, 244, 1);
+  background-image: url('/images/ps_neutral.png');
+  background-repeat: repeat;
 }
 
 #container {
-  width: 80%;
-  margin: auto;
+  width: 75%;
+  margin-top: 10%;
+}
+
+#searchbar {
+  display: inline-block;
+}
+
+@media screen and (max-width: 480px) {
+  #container {
+    width: 95%;
+    margin-top: 20%;
+  }
+  #searchbar {
+    width: 53%;
+  }
+
 }
 
 p {
@@ -39,7 +56,7 @@ a:hover, a:active {
 }
 
 .login-link {
-  color: white !important;
+  color: #ec00ae !important;
   text-decoration: none;
 }
 
@@ -53,7 +70,7 @@ input {
 }
 
 .input-text {
-  height: 45px !important;
+  height: 43px !important;
 }
 
 .search-text {
@@ -61,13 +78,14 @@ input {
 }
 
 .form-control:focus {
-  border: 1px solid #ec00ae;
+  border: 1px solid #333;
   box-shadow: none !important;
 }
 
 .form-header {
-  background-color: #333;
-  color: white;
+  background-color: white;
+  border: 2px solid #333;
+  color: #333;
   font-size: 2.5rem;
   padding: 1%;
   text-align: center;
@@ -86,94 +104,54 @@ hr {
   opacity: 0.25;
 }
 
-/*------------------- Page Header -------------------*/
-
-/*#page-header {
-  width: 100%;
-  padding-top: 4%;
-  background-color: lightgrey;
-  background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,.5) 50%);
-  background-size: 50px 50px;
-}
-
-#header-text {
-  text-align: center;
-}
-
-#header-text h1 {
-  font-family: 'Homemade Apple', cursive;
-  color: #333;
-  font-size: 10rem;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}*/
-
 /*------------------- Navbar/Footer -------------------*/
 
-.navbar-default {
-  background-color: rgba(255, 255, 255, 0.75);
-  box-shadow: 1px 1px 5px grey;
+.navbar {
+  background-color: #333;
 }
 
-.container-fluid {
-  text-align: center;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+.navbar a {
+  color: white !important;
 }
 
 .nav-text {
-  font-size: 2.25rem;
-  color: #333 !important;
-  padding: 1%;
-  font-weight: bold !important;
-}
-
-.nav-text:hover, .nav-text:active {
-  background-color: #333;
   color: white !important;
-  cursor: pointer;
+  font-size: 1em;
 }
 
-.middle {
-  width: 100%;
+.nav-text:hover {
+  color: #ec00ae !important;
+
 }
 
-.logo {
-  margin-top: 120px;
-  margin-bottom: 30px;
-  text-align: center;
+.navbar-brand {
+  font-size: 2em;
 }
 
-.logo h1 {
-  font-family: 'Homemade Apple', cursive;
-  font-size: 650%;
-  font-weight: bold;
-}
 
-.logo h2 {
-  font-family: 'Homemade Apple', cursive;
-}
+
 
 /*------------------- Icons, Links, Buttons -------------------*/
 
 
 /*---- Regular Buttons ----*/
+
 .btn {
   border-radius: 0px !important;
   background-color: #333 !important;
   color: white !important;
   border: 1.5px solid #333 !important;
   outline: none !important;
-  padding: 12px 36px !important;
-  font-size: 1.75rem;
+  padding: 10px 36px !important;
+  font-size: 1.5rem;
 }
 
 .btn:hover, .btn:active {
   cursor: pointer;
   background-color: white !important;
   color: #333 !important;
-  border: 1.5px solid #333 !important;
+  border: 2px solid #333 !important;
+  padding: 9px 36px !important;
   outline: none !important;
 }
 
@@ -209,19 +187,21 @@ hr {
   color: #ec00ae !important;
 }
 
-.btn-group button:hover, .btn-group a:hover {
-  background-color: lightgrey !important;
-  color: #333 !important;
-  border: 1px solid lightgrey !important;
+.btn-group button:hover {
+  border: 1px solid #333 !important;
+  padding: 6px 12px 4px 12px !important;
 }
 
-.btn-group button:active, .btn-group a:active {
-  background-color: lightgrey !important;
-  color: #333 !important;
-  border: 1px solid lightgrey !important;
+.btn-group button:active {
+  border: 1px solid #333 !important;
+  padding: 6px 12px 4px 12px !important;
 }
 
 /*---- Drop Down Menu ----*/
+
+.dropdown {
+  margin-bottom: 2% !important;
+}
 .dropdown-menu a {
   color: #333 !important;
 }
@@ -262,7 +242,8 @@ hr {
 }
 
 #addPost {
-  background-color: rgba(209, 255, 244, 1);
+  background-image: url('/images/ps_neutral.png');
+  background-repeat: repeat;
 }
 
 .tags {
@@ -356,6 +337,10 @@ hr {
 .error-icon {
   font-size: 60px;
   color: #f95e7d;
+}
+
+.back {
+  font-size: 1.5em;
 }
 
 .glyphicon-exclamation-sign {
