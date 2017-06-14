@@ -11,14 +11,9 @@ body {
   background-repeat: repeat;
 }
 
-#container {
-  width: 75%;
-  margin-top: 10%;
-}
+#container { width: 75%; margin-top: 15%;}
 
-#searchbar {
-  display: inline-block;
-}
+#searchbar { display: inline-block;}
 
 @media screen and (max-width: 480px) {
   #container {
@@ -31,14 +26,9 @@ body {
 
 }
 
-p {
-  font-size: 14px;
-  color: #333;
-}
+p { font-size: 14px; color: #333;}
 
-ul li {
-  list-style-type: none;
-}
+ul li { list-style-type: none;}
 
 label {
   color: #333;
@@ -46,51 +36,30 @@ label {
   cursor: pointer;
 }
 
-a {
-  color: #ec00ae;
-}
+a { color: #ec00ae;}
 
-a:hover, a:active {
-  color: #ec00ae;
-  cursor: pointer;
-}
+a:hover, a:active { color: #ec00ae; cursor: pointer;}
 
-.login-link {
-  color: #ec00ae !important;
-  text-decoration: none;
-}
+.login-link { color: #ec00ae !important; text-decoration: none;}
 
-.login-link:hover, .login-link:active {
-  text-decoration: underline;
-}
+.login-link:hover, .login-link:active { text-decoration: underline;}
 
-input {
-  width: 100%;
-  border-radius: 0px !important;
-}
+input { width: 100%; border-radius: 0px !important;}
 
-.input-text {
-  height: 43px !important;
-}
+.input-text { height: 43px !important;}
 
-.search-text {
-  height: 36px !important;
-}
+.search-text { height: 36px !important;}
 
-.form-control:focus {
-  border: 1px solid #333;
-  box-shadow: none !important;
-}
+.form-control:focus { border: 1px solid #333; box-shadow: none !important;}
 
 .form-header {
   background-color: white;
-  border: 2px solid #333;
-  color: #333;
-  font-size: 2.5rem;
-  padding: 1%;
+  color: grey;
+  font-size: 2rem;
+  padding: 2.5% 2% 2% 2%;
   text-align: center;
   box-shadow: 1px 1px 5px grey;
-  margin-bottom: 2.5%;
+  margin: 10% 0 5% 0;
 }
 
 textarea {
@@ -99,36 +68,21 @@ textarea {
   padding-bottom: 10px !important;
 }
 
-hr {
-  border-color: #333;
-  opacity: 0.25;
-}
+hr { border-color: #333; opacity: 0.25;}
 
 /*------------------- Navbar/Footer -------------------*/
 
-.navbar {
-  background-color: #333;
-}
+.navbar { background-color: #333;}
 
-.navbar a {
-  color: white !important;
-}
+.navbar a { color: white !important;}
 
-.nav-text {
-  color: white !important;
-  font-size: 1em;
-}
+.nav-text { color: white !important; font-size: 1em;}
 
-.nav-text:hover {
-  color: #ec00ae !important;
+.nav-text:hover { color: #ec00ae !important;}
 
-}
+.navbar-brand { font-size: 2em;}
 
-.navbar-brand {
-  font-size: 2em;
-}
-
-
+p.footer { color: #333; margin: 10% 0 2% 5%;}
 
 
 /*------------------- Icons, Links, Buttons -------------------*/
@@ -140,7 +94,6 @@ hr {
   border-radius: 0px !important;
   background-color: #333 !important;
   color: white !important;
-  border: 1.5px solid #333 !important;
   outline: none !important;
   padding: 10px 36px !important;
   font-size: 1.5rem;
@@ -148,11 +101,6 @@ hr {
 
 .btn:hover, .btn:active {
   cursor: pointer;
-  background-color: white !important;
-  color: #333 !important;
-  border: 2px solid #333 !important;
-  padding: 9px 36px !important;
-  outline: none !important;
 }
 
 .btn a {
@@ -163,9 +111,7 @@ hr {
 
 /*---- Button Group ----*/
 
-.btn-group {
-  margin-bottom: 1%;
-}
+.btn-group { margin-bottom: 1%;}
 
 .btn-group button {
   background-color: white !important;
@@ -174,89 +120,54 @@ hr {
   padding: 6px 12px 4px 12px !important;
 }
 
-.btn-group a {
-  color: #333 !important;
-  font-size: 14px !important;
-}
+.btn-group a { color: #333 !important; font-size: 14px !important;}
 
-.btn-group .glyphicon, .btn-group span {
-  font-size: 14px !important;
-}
+.btn-group .glyphicon, .btn-group span { font-size: 14px !important;}
 
-.btn-group .glyphicon-heart {
-  color: #ec00ae !important;
-}
+.btn-group .glyphicon-heart {color: #ec00ae !important;}
 
-.btn-group button:hover {
-  border: 1px solid #333 !important;
-  padding: 6px 12px 4px 12px !important;
-}
+.btn-group button:hover { border: 1px solid #333 !important; padding: 6px 12px 4px 12px !important;}
 
-.btn-group button:active {
-  border: 1px solid #333 !important;
-  padding: 6px 12px 4px 12px !important;
-}
+.btn-group button:active { border: 1px solid #333 !important; padding: 6px 12px 4px 12px !important;}
 
 /*---- Drop Down Menu ----*/
 
-.dropdown {
-  margin-bottom: 2% !important;
-}
-.dropdown-menu a {
-  color: #333 !important;
-}
+.dropdown { margin-bottom: 2% !important;}
 
-.dropdown-menu a:hover, .dropdown-menu a:active {
-  color: #ec00ae !important;
-}
+.dropdown-menu a { color: #333 !important;}
+
+.dropdown-menu a:hover, .dropdown-menu a:active { color: #ec00ae !important;}
 
 /*---- Glyphicons ----*/
 
-.glyphicon {
-  color: #333;
-  font-size: 14px;
-}
+.glyphicon { color: #333; font-size: 14px;}
 
-.glyphicon-link:hover, .glyphicon-trash:hover {
-  color: #ec00ae;
-  cursor: pointer;
-}
+.glyphicon-link:hover { color: #ec00ae; cursor: pointer;}
 
-.glyphicon-link:active, .glyphicon-trash:active {
-  color: #ec00ae;
-  cursor: pointer;
-}
+.glyphicon-link:active { color: #ec00ae; cursor: pointer;}
 
 /*------------------- Home Page Layout -------------------*/
 
 .posts {
-  margin-bottom: 2%;
-  padding: 1% 1.5% 2% 1.5%;
+  margin-bottom: 3%;
+  padding: 1% 1.5% 4% 1.5%;
   box-shadow: 1px 1px 5px grey;
   background-color: white;
 }
 
-.postInfo {
-  margin-left: 1.5%;
-  background-color: white;
-}
+.postInfo { margin-left: 1.5%;
+  background-color: white;}
 
-#addPost {
-  background-image: url('/images/ps_neutral.png');
-  background-repeat: repeat;
-}
+#addPost { background-image: url('/images/ps_neutral.png'); background-repeat: repeat;}
 
-.tags {
-  margin-top: 1%;
-  display: inline-block;
-}
+.tags { margin-top: 2%; display: inline-block;}
 
 .label-default {
-  padding: 3px 15px;
+  padding: 3px 14px 2px 14px;
   background-color: white;
-  border: 1.5px solid #333;
+  border: 1px solid #333;
   color: #333 !important;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   margin-right: 4px !important;
   border-radius: 20px !important;
@@ -265,15 +176,15 @@ hr {
 .label-default:hover, .label-default:active {
   cursor: pointer;
   background-color: white;
-  border: 1.5px solid #ec00ae;
+  border: 1px solid #ec00ae;
   color: #ec00ae !important;
 }
 
 /*------------------- Comments Page Layout -------------------*/
 
 .post-info {
-  margin-bottom: 2%;
-  padding: 2%;
+  margin-bottom: 5%;
+  padding: 4%;
   box-shadow: 1px 1px 5px grey;
   background-color: white;
 }
@@ -285,46 +196,39 @@ hr {
 }
 
 .post-body {
-  padding: 0.5%;
-  margin-bottom: 1%;
-  /*margin-left: 1%;*/
+  padding: 2%;
+  margin: 2% 0;
   background-color: white;
   border: 1px solid lightgrey;
   display: inline-block;
   width: 100%;
+  text-align: left;
 }
 
-.post-tags {
-  margin-top: 1%;
-  display: inline-block;
-}
+.post-tags { margin-top: 2%; display: inline-block;}
 
-.timestamp {
-  margin: 0;
-  padding: 0 0 1% 0;
-}
+.timestamp { margin-bottom: 1%; padding: 0 0 1% 0;}
 
 .comment-info {
-  padding: 2%;
+  padding: 4%;
   background: white;
   box-shadow: 1px 1px 5px grey;
-  margin-bottom: 1%;
+  margin-bottom: 3%;
 }
 
 .comment-body {
-  padding: 0.5%;
-  margin-bottom: 1%;
+  padding: 2%;
+  margin: 2% 0;
   background-color: white;
   border: 1px solid lightgrey;
   display: inline-block;
   width: 100%;
+  text-align: left;
 }
 
 /*------------------- Login/Reg/Error Page Layout -------------------*/
 
-#login h1, #register h1, #error h1 {
-  margin-top: 2%;
-}
+#login h1, #register h1, #error h1 { margin-top: 2%;}
 
 .error {
   margin-top: 5%;
@@ -334,14 +238,9 @@ hr {
   font-size: 16px;
 }
 
-.error-icon {
-  font-size: 60px;
-  color: #f95e7d;
-}
+.error-icon { font-size: 60px; color: #f95e7d;}
 
-.back {
-  font-size: 1.5em;
-}
+.back { font-size: 1.5em;}
 
 .glyphicon-exclamation-sign {
   color: white;
